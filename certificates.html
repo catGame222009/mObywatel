@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Wydane certyfikaty - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <style>
+        .app-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .top_grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 16px 0;
+        }
+        .action_grid {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--accent-blue);
+        }
+        .back_chevron { font-size: 20px; }
+        .back_text { font-size: 16px; }
+        .title_text {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        /* Segmented control */
+        .tabs-header {
+            display: flex;
+            background: var(--bg-card);
+            padding: 4px;
+            border-radius: 12px;
+            margin: 12px 0 20px;
+            border: 1px solid var(--border-color);
+        }
+        .tab-btn {
+            flex: 1;
+            text-align: center;
+            padding: 9px 0;
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            background: #252b36;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+        html.theme-light .tab-btn.active {
+            background: #ffffff;
+            color: #171a20;
+        }
+        .cert-card {
+            background: var(--bg-card);
+            border-radius: 18px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            margin-bottom: 16px;
+        }
+        .cert-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .cert-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .cert-badge {
+            background: rgba(30, 199, 55, 0.15);
+            color: #1ec737;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .cert-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+        .cert-row:last-child { border-bottom: none; }
+        .cert-label { color: var(--text-secondary); }
+        .cert-val { color: var(--text-primary); font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('more')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Więcej</span>
+            </div>
+            <h1 class="title_text">Wydane certyfikaty</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="tabs-header">
+            <div class="tab-btn active" id="tab-valid" onclick="setCertTab('valid')">Ważne (1)</div>
+            <div class="tab-btn" id="tab-expired" onclick="setCertTab('expired')">Nieważne (0)</div>
+        </div>
+
+        <div id="content-valid">
+            <div class="cert-card">
+                <div class="cert-head">
+                    <span class="cert-name">Certyfikat mDowód</span>
+                    <span class="cert-badge">Ważny</span>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-label">Ważny jeszcze</span>
+                    <span class="cert-val" style="color: #388af6;">303 dni</span>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-label">Data wydania</span>
+                    <span class="cert-val">15.08.2024</span>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-label">Data ważności</span>
+                    <span class="cert-val">15.08.2025</span>
+                </div>
+                <div class="cert-row">
+                    <span class="cert-label">Urządzenie</span>
+                    <span class="cert-val">Apple iPhone</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-expired" style="display: none; text-align: center; padding: 40px 20px; color: var(--text-secondary);">
+            Brak nieważnych certyfikatów.
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('more')">
+                <div class="bottom_element_image more_open more"></div>
+                <p class="bottom_element_text open">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        function setCertTab(tab) {
+            if (tab === 'valid') {
+                document.getElementById('tab-valid').classList.add('active');
+                document.getElementById('tab-expired').classList.remove('active');
+                document.getElementById('content-valid').style.display = 'block';
+                document.getElementById('content-expired').style.display = 'none';
+            } else {
+                document.getElementById('tab-valid').classList.remove('active');
+                document.getElementById('tab-expired').classList.add('active');
+                document.getElementById('content-valid').style.display = 'none';
+                document.getElementById('content-expired').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

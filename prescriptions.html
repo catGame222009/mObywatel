@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Recepty - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        body.ikp-body {
+            background-color: #ffffff;
+            color: #101419;
+        }
+        .ikp-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 22px 100px;
+            box-sizing: border-box;
+            background: #ffffff;
+            color: #101419;
+            min-height: 100vh;
+        }
+        .ikp-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 24px;
+        }
+        .ikp-title-main {
+            font-size: 22px;
+            font-weight: 700;
+            color: #101419;
+            text-align: center;
+            line-height: 1.35;
+            margin-bottom: 16px;
+        }
+        .ikp-desc {
+            font-size: 15px;
+            line-height: 1.45;
+            color: #2b303a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .ikp-check-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            justify-content: center;
+        }
+        .ikp-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            border: 2px solid #3b82f6;
+            background: #101419;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .ikp-check-text {
+            font-size: 14px;
+            color: #101419;
+            font-weight: 500;
+        }
+        .ikp-buttons-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+        .ikp-btn-pdf {
+            background: #0f3460;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+        .ikp-btn-next {
+            background: #1e6bf1;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+        .ikp-footer-text {
+            font-size: 13.5px;
+            line-height: 1.4;
+            color: #555e6d;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .mz-logo-box {
+            text-align: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: #101419;
+            border-bottom: 2px solid #d8232a;
+            width: max-content;
+            margin: 0 auto 18px;
+            padding-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+        .nfz-logo-box {
+            text-align: center;
+            font-weight: 900;
+            font-size: 34px;
+            color: #0b327b;
+            font-family: serif;
+        }
+    </style>
+</head>
+<body class="ikp-body">
+    <div class="ikp-wrapper">
+        <header class="ikp-top">
+            <div class="action_grid" onclick="sendTo('services')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Usługi</span>
+            </div>
+            <h1 class="title_text" style="color: #101419; font-size: 16px;">Recepty</h1>
+            <div style="width: 22px;"></div>
+        </header>
+
+        <h2 class="ikp-title-main">Nie korzystałeś jeszcze z Internetowego Konta Pacjenta.</h2>
+        <p class="ikp-desc">
+            Aby uzyskać dostęp do swoich niezrealizowanych e-recept w aplikacji mObywatel zaakceptuj regulamin:
+        </p>
+
+        <div class="ikp-check-row" onclick="toggleIkpCheck()">
+            <div class="ikp-checkbox" id="ikpCb">✓</div>
+            <span class="ikp-check-text">Akceptuję warunki korzystania z portalu pacjent.gov.pl</span>
+        </div>
+
+        <div class="ikp-buttons-row">
+            <button type="button" class="ikp-btn-pdf" onclick="alert('Pobieranie regulaminu PDF')">Pobierz PDF</button>
+            <button type="button" class="ikp-btn-next" onclick="alert('Konto IKP aktywne. Brak niezrealizowanych e-recept.')">Dalej</button>
+        </div>
+
+        <p class="ikp-footer-text">
+            Sprawdź wszystkie możliwości Internetowego Konta Pacjenta logując się na: pacjent.gov.pl
+        </p>
+
+        <div class="mz-logo-box">Ministerstwo<br>Zdrowia</div>
+        <div class="nfz-logo-box">NFZ</div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('services')">
+                <div class="bottom_element_image services_open services"></div>
+                <p class="bottom_element_text open">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('more')">
+                <div class="bottom_element_image more"></div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        function toggleIkpCheck() {
+            const el = document.getElementById('ikpCb');
+            el.textContent = el.textContent === '✓' ? '' : '✓';
+        }
+    </script>
+</body>
+</html>

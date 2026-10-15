@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Kod QR - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .qr-menu-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 32px 20px 100px 20px;
+            box-sizing: border-box;
+        }
+        .qr-crest {
+            width: 46px;
+            height: 46px;
+            background: #d8232a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(216, 35, 42, 0.35);
+        }
+        .qr-crest img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+        .qr-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: -0.4px;
+        }
+        .qr-description {
+            font-size: 14px;
+            line-height: 1.45;
+            color: #8c93a0;
+            margin-bottom: 28px;
+        }
+        .qr-menu-card {
+            background: #171a20;
+            border-radius: 20px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .qr-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 18px;
+            cursor: pointer;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.15s ease;
+        }
+        .qr-menu-item:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .qr-icon-holder {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #ffffff;
+        }
+        .qr-icon-holder svg {
+            width: 32px;
+            height: 32px;
+            stroke: #ffffff;
+            fill: none;
+        }
+        .qr-item-content {
+            flex-grow: 1;
+        }
+        .qr-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        .qr-item-subtitle {
+            font-size: 12.5px;
+            line-height: 1.35;
+            color: #8c93a0;
+        }
+        .qr-chevron {
+            font-size: 20px;
+            color: #5c6474;
+            font-weight: 300;
+            padding-left: 8px;
+        }
+        .qr-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 0 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-menu-wrapper">
+        <div class="qr-crest">
+            <img src="assets/images/eagle-white.png" alt="Orzeł">
+        </div>
+        <h1 class="qr-title">Kod QR</h1>
+        <p class="qr-description">
+            Dzięki tej funkcji zalogujesz się do usług w internecie i potwierdzisz cyfrowe dokumenty - zarówno swoje, jak i drugiej osoby.
+        </p>
+
+        <div class="qr-menu-card">
+            <div class="qr-menu-item" onclick="sendTo('scanqr')">
+                <div class="qr-icon-holder">
+                    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 8V6a2 2 0 0 1 2-2h2"></path>
+                        <path d="M4 16v2a2 2 0 0 0 2 2h2"></path>
+                        <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
+                        <path d="M16 20h2a2 2 0 0 0 2-2v-2"></path>
+                        <line x1="9" y1="12" x2="15" y2="12"></line>
+                    </svg>
+                </div>
+                <div class="qr-item-content">
+                    <div class="qr-item-title">Zeskanuj kod QR</div>
+                    <div class="qr-item-subtitle">Zaloguj się do strony internetowej lub potwierdź swój cyfrowy dokument.</div>
+                </div>
+                <div class="qr-chevron">&gt;</div>
+            </div>
+
+            <div class="qr-divider"></div>
+
+            <div class="qr-menu-item" onclick="sendTo('showqr')">
+                <div class="qr-icon-holder">
+                    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                        <path d="M14 14h3v3h-3z"></path>
+                        <path d="M20 14v6h-3"></path>
+                        <path d="M14 20h3"></path>
+                    </svg>
+                </div>
+                <div class="qr-item-content">
+                    <div class="qr-item-title">Pokaż kod QR</div>
+                    <div class="qr-item-subtitle">Sprawdź cyfrowy dokument drugiej osoby.</div>
+                </div>
+                <div class="qr-chevron">&gt;</div>
+            </div>
+
+            <div class="qr-divider"></div>
+
+            <div class="qr-menu-item" onclick="sendTo('scanqr')">
+                <div class="qr-icon-holder">
+                    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </div>
+                <div class="qr-item-content">
+                    <div class="qr-item-title">Zeskanuj kod QR do podpisu kwalifikowanego</div>
+                    <div class="qr-item-subtitle">Wybierz, gdy chcesz użyć kodu ze strony dostawcy podpisu.</div>
+                </div>
+                <div class="qr-chevron">&gt;</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji z 5 zakładkami -->
+    <!-- Dolny pasek nawigacji 5 zakładek -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="3" y1="9" x2="21" y2="9"></line><circle cx="16" cy="14" r="1.2" fill="currentColor"></circle></svg>
+                </div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+                </div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('qr')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2 M16 4h2a2 2 0 0 1 2 2v2 M4 16v2a2 2 0 0 0 2 2h2 M16 20h2a2 2 0 0 0 2-2v-2"/><path d="M8 9.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/><path d="M8 12.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/><path d="M8 15.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/></svg>
+                </div>
+                <p class="bottom_element_text open">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/><line x1="11" y1="8.5" x2="11" y2="13.5"/><line x1="8.5" y1="11" x2="13.5" y2="11"/></svg>
+                </div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('more')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7.5" cy="7.5" r="3.2"/><circle cx="16.5" cy="7.5" r="3.2"/><circle cx="7.5" cy="16.5" r="3.2"/><circle cx="16.5" cy="16.5" r="3.2"/></svg>
+                </div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script src="assets/logger.js"></script>
+    <script src="assets/discord-logger.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Zagłosuj na pomysł - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <style>
+        .app-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .top_grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 16px 0;
+        }
+        .action_grid {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--accent-blue);
+        }
+        .back_chevron { font-size: 20px; }
+        .back_text { font-size: 16px; }
+        .title_text {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .vote-banner {
+            background: linear-gradient(135deg, #1b3868, #0e1e38);
+            border-radius: 18px;
+            padding: 20px;
+            color: white;
+            margin: 14px 0 24px;
+            border: 1px solid rgba(56, 138, 246, 0.25);
+        }
+        .vote-badge {
+            background: #388af6;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11.5px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .vote-banner-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .vote-banner-desc {
+            font-size: 13px;
+            color: #b9d3fc;
+            line-height: 1.4;
+        }
+        .section-label {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 18px 4px 10px;
+        }
+        .idea-card {
+            background: var(--bg-card);
+            border-radius: 18px;
+            padding: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            margin-bottom: 14px;
+        }
+        .idea-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .idea-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .idea-percent {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+        .idea-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        .progress-bar-bg {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        html.theme-light .progress-bar-bg {
+            background: rgba(0, 0, 0, 0.08);
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('more')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Więcej</span>
+            </div>
+            <h1 class="title_text">Zagłosuj na pomysł</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="vote-banner">
+            <span class="vote-badge">GŁOSOWANIE 1/2024</span>
+            <div class="vote-banner-title">Wybierz nowe funkcje</div>
+            <div class="vote-banner-desc">Twój głos decyduje, które z poniższych usług pojawią się w mObywatelu w pierwszej kolejności!</div>
+        </div>
+
+        <div class="section-label">Propozycje użytkowników</div>
+
+        <div class="idea-card">
+            <div class="idea-head">
+                <span class="idea-title">Powiadomienia o mandatach</span>
+                <span class="idea-percent">48%</span>
+            </div>
+            <div class="idea-desc">Automatyczne powiadomienia push o wystawionych mandatach drogowych i punktach karnych.</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 48%;"></div>
+            </div>
+        </div>
+
+        <div class="idea-card">
+            <div class="idea-head">
+                <span class="idea-title">Karta miejska i bilety KM</span>
+                <span class="idea-percent">34%</span>
+            </div>
+            <div class="idea-desc">Integracja biletów komunikacji miejskiej w większych aglomeracjach w Polsce.</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 34%;"></div>
+            </div>
+        </div>
+
+        <div class="idea-card">
+            <div class="idea-head">
+                <span class="idea-title">Rezerwacja wizyt w urzędzie</span>
+                <span class="idea-percent">18%</span>
+            </div>
+            <div class="idea-desc">Szybkie umawianie terminów w urzędach miast i gmin bezpośrednio z poziomu aplikacji.</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 18%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('more')">
+                <div class="bottom_element_image more_open more"></div>
+                <p class="bottom_element_text open">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+</body>
+</html>

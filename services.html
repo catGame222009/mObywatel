@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Usługi - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .services-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 24px 18px 100px;
+            box-sizing: border-box;
+        }
+        .services-main-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 6px 0 18px 0;
+            letter-spacing: -0.4px;
+        }
+        .services-search-bar {
+            background: var(--bg-card);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 12px;
+            margin-bottom: 22px;
+            border: 1px solid var(--border-color);
+        }
+        .services-search-icon {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+            stroke: #388af6;
+        }
+        .services-search-bar input {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+        }
+        .services-search-bar input::placeholder {
+            color: var(--text-secondary);
+        }
+        .services-section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 4px 10px;
+        }
+        .services-section-title {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .services-adjust-link {
+            font-size: 14px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .services-card-list {
+            background: var(--bg-card);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+            border: 1px solid var(--border-color);
+        }
+        .service-row-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .service-row-item:last-child {
+            border-bottom: none;
+        }
+        .service-row-item:active {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        html.theme-light .service-row-item:active {
+            background: rgba(0, 0, 0, 0.04);
+        }
+        .service-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .service-icon-box {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .service-label {
+            font-size: 15.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .service-chevron {
+            font-size: 18px;
+            color: #5c6474;
+            font-weight: 400;
+        }
+        .icon-box-doc { background: #191c36; }
+        .icon-box-net { background: #15223e; }
+        .icon-box-checkid { background: #221838; }
+        .icon-box-pesel { background: #25183a; }
+        .icon-box-defense { background: #2e1e12; }
+        .icon-box-safety { background: #2d1718; }
+        .icon-box-health { background: #2e151f; }
+    </style>
+</head>
+<body>
+    <div class="services-wrapper">
+        <h1 class="services-main-title">Usługi</h1>
+
+        <div class="services-search-bar">
+            <svg class="services-search-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16" y2="16"></line>
+            </svg>
+            <input type="text" placeholder="Szukaj">
+        </div>
+
+        <!-- 1. Ochrona danych -->
+        <div class="services-section-head">
+            <span class="services-section-title">Ochrona danych</span>
+            <span class="services-adjust-link" onclick="sendTo('selectdocs')">Dostosuj widok</span>
+        </div>
+
+        <div class="services-card-list">
+            <!-- Zastrzeż dokument -->
+            <div class="service-row-item" onclick="sendTo('lockdoc')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-doc">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <rect x="2.5" y="4.5" width="19" height="15" rx="3" fill="#1b2848" stroke="#388af6" stroke-width="1.8"/>
+                            <rect x="2.5" y="8.5" width="19" height="3" fill="#388af6"/>
+                            <rect x="5.5" y="14" width="4" height="2.5" rx="0.6" fill="#42e0f5"/>
+                            <circle cx="17.5" cy="15.2" r="1.3" fill="#5fe3ff"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Zastrzeż dokument</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+
+            <!-- Bezpiecznie w sieci -->
+            <div class="service-row-item" onclick="sendTo('safenet')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-net">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#42d4f5" stroke-width="1.8">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M3 12h18"/>
+                            <ellipse cx="12" cy="12" rx="4.5" ry="9"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Bezpiecznie w sieci</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+
+            <!-- Sprawdź dowód -->
+            <div class="service-row-item" onclick="sendTo('checkid')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-checkid">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="8" r="4" fill="#a85cfc"/>
+                            <path d="M4 19c0-3.3 3.5-5.5 8-5.5s8 2.2 8 5.5v1H4v-1z" fill="#a85cfc"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Sprawdź dowód</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+
+            <!-- Zastrzeż PESEL -->
+            <div class="service-row-item" onclick="sendTo('pesel')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-pesel">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <rect x="5" y="10" width="14" height="11" rx="2.5" fill="#f5a623"/>
+                            <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="#f5a623" stroke-width="2.2" stroke-linecap="round"/>
+                            <circle cx="12" cy="15" r="1.5" fill="#1b122c"/>
+                            <path d="M12 16.5v2" stroke="#1b122c" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Zastrzeż PESEL</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+
+            <!-- Sprawdź PESEL -->
+            <div class="service-row-item" onclick="sendTo('checkpesel')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-pesel">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <circle cx="10" cy="10" r="6" stroke="#42d4f5" stroke-width="2.2"/>
+                            <path d="M15 15l5.5 5.5" stroke="#42d4f5" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M8 10h4M10 8v4" stroke="#a85cfc" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Sprawdź PESEL</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+        </div>
+
+        <!-- 2. Bezpieczeństwo -->
+        <div class="services-section-head">
+            <span class="services-section-title">Bezpieczeństwo</span>
+        </div>
+
+        <div class="services-card-list">
+            <!-- Szkolenia obronne -->
+            <div class="service-row-item" onclick="sendTo('defensetraining')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-defense">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 14l-4 3-3-3-4 3-4-3 5-5 3 2 4-2 3 5z" fill="#f5a623"/>
+                            <circle cx="9" cy="10" r="1.2" fill="#fff"/>
+                            <circle cx="15" cy="10" r="1.2" fill="#fff"/>
+                            <path d="M2 13l4-3 3 2 3-2 3 2 4-3" stroke="#ffc553" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Szkolenia obronne</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+
+            <!-- Poradnik bezpieczeństwa -->
+            <div class="service-row-item" onclick="sendTo('safetyguide')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-safety">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 5c3-1.5 6-1 8 1 2-2 5-2.5 8-1v13c-3-1.5-6-1-8 1-2-2-5-2.5-8-1V5z" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+                            <path d="M12 6v14" stroke="#c0392b" stroke-width="1.5"/>
+                            <path d="M15 6v6l2-1.5 2 1.5V6z" fill="#e74c3c"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Poradnik bezpieczeństwa</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+        </div>
+
+        <!-- 3. Zdrowie -->
+        <div class="services-section-head">
+            <span class="services-section-title">Zdrowie</span>
+        </div>
+
+        <div class="services-card-list">
+            <!-- Recepty -->
+            <div class="service-row-item" onclick="sendTo('prescriptions')">
+                <div class="service-left">
+                    <div class="service-icon-box icon-box-health">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#ff3366"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">Recepty</span>
+                </div>
+                <span class="service-chevron">&gt;</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji 5 zakładek -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="3" y1="9" x2="21" y2="9"></line><circle cx="16" cy="14" r="1.2" fill="currentColor"></circle></svg>
+                </div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('services')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+                </div>
+                <p class="bottom_element_text open">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2 M16 4h2a2 2 0 0 1 2 2v2 M4 16v2a2 2 0 0 0 2 2h2 M16 20h2a2 2 0 0 0 2-2v-2"/><path d="M8 9.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/><path d="M8 12.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/><path d="M8 15.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/></svg>
+                </div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/><line x1="11" y1="8.5" x2="11" y2="13.5"/><line x1="8.5" y1="11" x2="13.5" y2="11"/></svg>
+                </div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('more')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7.5" cy="7.5" r="3.2"/><circle cx="16.5" cy="7.5" r="3.2"/><circle cx="7.5" cy="16.5" r="3.2"/><circle cx="16.5" cy="16.5" r="3.2"/></svg>
+                </div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+</body>
+</html>

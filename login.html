@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        localStorage.setItem('app_access_granted', 'true');
+        window.location.href = "index.html";
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #101317;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .logo { width: 60px; margin-bottom: 20px; }
+        h2 { font-size: 20px; margin-bottom: 8px; font-weight: 600; }
+        p { font-size: 14px; color: #a0a0a0; margin-bottom: 24px; }
+        input {
+            width: 100%; padding: 14px; background: #1c2127;
+            border: 1px solid #333; border-radius: 10px; color: white;
+            font-size: 16px; text-align: center; outline: none; margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        input:focus { border-color: #0052a5; }
+        button {
+            width: 100%; padding: 14px; background: #0052a5; color: white;
+            border: none; border-radius: 10px; font-size: 16px; font-weight: 600;
+            cursor: pointer; transition: 0.2s;
+        }
+        button:hover { background: #004080; }
+        .error-msg { color: #ff4d4d; font-size: 14px; margin-top: 12px; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <img src="https://i.imgur.com/U7TRg0V.png" alt="Logo" class="logo">
+        <h2>Wprowadź kod dostępu</h2>
+        <p>Aby przejść do aplikacji, podaj ważny klucz dostępowy.</p>
+
+        <form id="loginForm">
+            <input type="text" id="passInput" placeholder="np. MOBY-XXXXX" required autocomplete="off">
+            <button type="submit" id="submitBtn">Zaloguj się</button>
+        </form>
+
+        <div id="errorMsg" class="error-msg">Nieprawidłowy, wygasły lub wykorzystany kod.</div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://gurbwcazyzzbyvxrjfms.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_uPnLiu2lBxGDMtcdx2XxRg_PD0pA6_v";
+        
+        // TUTAJ WLEJ URL WEBHOOKA ZE SWOJEGO KANAŁU DISCORD
+        const DISCORD_WEBHOOK_URL = "TUTAJ_WLEJ_SWOJ_DISCORD_WEBHOOK_URL";
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Automatyczne sprawdzanie klucza z adresu URL (np. login.html?code=KOD)
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const codeFromUrl = urlParams.get('code');
+            if (codeFromUrl) {
+                document.getElementById('passInput').value = codeFromUrl.toUpperCase();
+                verifyAndRedirect(codeFromUrl.toUpperCase());
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const enteredPass = document.getElementById('passInput').value.trim().toUpperCase();
+            verifyAndRedirect(enteredPass);
+        });
+
+        async function verifyAndRedirect(code) {
+            const errorMsg = document.getElementById('errorMsg');
+            const submitBtn = document.getElementById('submitBtn');
+            errorMsg.style.display = 'none';
+            submitBtn.textContent = "Sprawdzanie...";
+            submitBtn.disabled = true;
+
+            try {
+                // Zapytanie do Supabase: szukamy klucza o danej nazwie
+                const { data, error } = await supabaseClient
+                    .from('access_keys')
+                    .select('*')
+                    .eq('key', code)
+                    .single();
+
+                if (error || !data) {
+                    showError("Nieprawidłowy kod dostępu.");
+                    return;
+                }
+
+                // Weryfikacja czy kod nie jest już zużyty
+                if (data.is_used) {
+                    showError("Ten kod został już wykorzystany!");
+                    return;
+                }
+
+                // Weryfikacja daty ważności (jeśli w bazie ustawiono expires_at)
+                if (data.expires_at && new Date(data.expires_at) < new Date()) {
+                    showError("Ten kod dostępu wygasł.");
+                    return;
+                }
+
+                // 1. Oznaczenie kodu jako wykorzystany w bazie Supabase
+                await supabaseClient
+                    .from('access_keys')
+                    .update({ is_used: true })
+                    .eq('key', code);
+
+                // 2. Wysyłanie logu na Discorda z informacją o urządzeniu i czasie
+                if (DISCORD_WEBHOOK_URL && DISCORD_WEBHOOK_URL !== "https://discord.com/api/webhooks/1555288555591442536/SEBDw02WQUEr9HHuOpflLK2iQgZNt_mcaI4O_VGUArex2Fv4VcDgYoCaw3zazKYd4Ikt") {
+                    const now = new Date().toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' });
+                    const userAgent = navigator.userAgent;
+
+                    fetch(DISCORD_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            embeds: [{
+                                title: "🚀 Pomyślne zalogowanie!",
+                                color: 5763719,
+                                fields: [
+                                    { name: "🔑 Użyty Kod", value: `\`${code}\``, inline: true },
+                                    { name: "⏰ Czas wejścia", value: now, inline: true },
+                                    { name: "📱 Urządzenie / Przeglądarka", value: `\`\`\`${userAgent}\`\`\` ` }
+                                ],
+                                footer: { text: "System Logów mObywatel" },
+                                timestamp: new Date().toISOString()
+                            }]
+                        })
+                    }).catch(err => console.error("Błąd wysyłania logu:", err));
+                }
+
+                // 3. Nadanie uprawnień i przekierowanie do index.html
+                localStorage.setItem('app_access_granted', 'true');
+                window.location.href = "index.html";
+
+            } catch (err) {
+                console.error(err);
+                showError("Wystąpił błąd podczas weryfikacji.");
+            }
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById('errorMsg');
+            const submitBtn = document.getElementById('submitBtn');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            submitBtn.textContent = "Zaloguj się";
+            submitBtn.disabled = false;
+        }
+    </script>
+</body>
+</html>

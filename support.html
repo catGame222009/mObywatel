@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Pomoc techniczna - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <style>
+        .app-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .top_grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 16px 0;
+        }
+        .action_grid {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--accent-blue);
+        }
+        .back_chevron { font-size: 20px; }
+        .back_text { font-size: 16px; }
+        .title_text {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .section-label {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 18px 4px 10px;
+        }
+        .support-card {
+            background: var(--bg-card);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        .support-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .support-row:last-child { border-bottom: none; }
+        .support-left {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .support-title {
+            font-size: 15.5px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .support-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .support-chevron {
+            font-size: 18px;
+            color: #5c6474;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('more')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Więcej</span>
+            </div>
+            <h1 class="title_text">Pomoc techniczna</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="section-label">Kontakt</div>
+        <div class="support-card">
+            <a href="tel:+48422535450" class="support-row">
+                <div class="support-left">
+                    <span class="support-title">Infolinia mObywatel</span>
+                    <span class="support-subtitle">+48 42 253 54 50 (w dni robocze 7:00 - 18:00)</span>
+                </div>
+                <span class="support-chevron">&gt;</span>
+            </a>
+            <div class="support-row" onclick="alert('Formularz zgłoszeniowy dostępny pod adresem pomoc@mobywatel.gov.pl')">
+                <div class="support-left">
+                    <span class="support-title">Zgłoś błąd w aplikacji</span>
+                    <span class="support-subtitle">Prześlij opis problemu technicznego</span>
+                </div>
+                <span class="support-chevron">&gt;</span>
+            </div>
+        </div>
+
+        <div class="section-label">Pytania i odpowiedzi</div>
+        <div class="support-card">
+            <div class="support-row" onclick="sendTo('safetyguide')">
+                <div class="support-left">
+                    <span class="support-title">Jak zabezpieczyć konto?</span>
+                    <span class="support-subtitle">Porady dotyczące bezpieczeństwa danych</span>
+                </div>
+                <span class="support-chevron">&gt;</span>
+            </div>
+            <div class="support-row">
+                <div class="support-left">
+                    <span class="support-title">Ważność mDowodu</span>
+                    <span class="support-subtitle">Kiedy i jak odnowić certyfikat</span>
+                </div>
+                <span class="support-chevron">&gt;</span>
+            </div>
+            <div class="support-row">
+                <div class="support-left">
+                    <span class="support-title">Przenoszenie na nowy telefon</span>
+                    <span class="support-subtitle">Instrukcja krok po kroku</span>
+                </div>
+                <span class="support-chevron">&gt;</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('more')">
+                <div class="bottom_element_image more_open more"></div>
+                <p class="bottom_element_text open">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+</body>
+</html>

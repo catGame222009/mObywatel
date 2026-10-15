@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=3.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="mObywatel">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+</head>
+
+<body>
+    <div class="mobile-wrapper">
+        <!-- Pasek górny iOS -->
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('home')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Wróć</span>
+            </div>
+            <h1 class="title_text">mDowód</h1>
+            <div class="help_icon_btn" onclick="sendTo('more')">?</div>
+        </header>
+
+        <!-- Czas na żywo -->
+        <p class="time_text" id="time">Czas: 12:00:00 08.10.2026</p>
+
+        <!-- Karta mDowód (część górna z giloszem) -->
+        <div class="id_card_container">
+            <div class="id_image_data">
+                <!-- Zdjęcie użytkownika -->
+                <div class="id_own_image" id="userPhoto"></div>
+
+                <!-- Flaga Polski -->
+                <img draggable="false" src="assets/images/flag.webp" class="flag_video" alt="Flaga Polski">
+
+                <!-- Godło i Rzeczpospolita Polska -->
+                <div class="eagle_section">
+                    <img draggable="false" src="assets/images/eagle.png" class="eagle_video" alt="Godło Polski">
+                    <span class="eagle_text">Rzeczpospolita<br>Polska</span>
+                </div>
+
+                <!-- Dane osobowe (prawa kolumna) -->
+                <div class="id_data_grid">
+                    <div class="data_holder">
+                        <p class="data_title" id="name">BRAK DANYCH</p>
+                        <p class="data_value">Imię (Imiona)</p>
+                    </div>
+                    <div class="data_holder">
+                        <p class="data_title" id="surname">BRAK DANYCH</p>
+                        <p class="data_value">Nazwisko</p>
+                    </div>
+                    <div class="data_holder">
+                        <p class="data_title" id="nationality">POLSKIE</p>
+                        <p class="data_value">Obywatelstwo</p>
+                    </div>
+                    <div class="data_holder">
+                        <p class="data_title" id="birthday">BRAK DANYCH</p>
+                        <p class="data_value">Data urodzenia</p>
+                    </div>
+                    <div class="data_holder">
+                        <p class="data_title" id="pesel">BRAK DANYCH</p>
+                        <p class="data_value">Numer PESEL</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dolna belka karty: Dokument ważny -->
+            <div class="id_bottom">
+                <div class="bottom_grid">
+                    <img class="bottom_image" src="assets/images/valid.png" alt="Ważny">
+                    <p class="bottom_text">Dokument ważny</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Przycisk Wyłącz/Włącz animacje (ze screena 1:1) -->
+        <div class="anim-toggle-container">
+            <button type="button" class="anim-toggle-btn" id="animToggle" onclick="toggleAnimations()">Wyłącz animacje</button>
+        </div>
+
+        <!-- 4 Skróty pod kartą 1:1 ze screena -->
+        <div class="top-buttons">
+            <button onclick="sendTo('qr')" class="shortcut-btn" type="button">
+                <div class="icon-circle">
+                    <img src="assets/images/confirm_orig.png" alt="Potwierdź" style="width: 28px; height: 28px; object-fit: contain;">
+                </div>
+                <span>Potwierdź<br>swoje dane</span>
+            </button>
+
+            <button onclick="sendTo('moreid')" class="shortcut-btn" type="button">
+                <div class="icon-circle">
+                    <img src="assets/images/card_orig.png" alt="Dowód" style="width: 32px; height: 20px; border-radius: 4px; object-fit: cover;">
+                </div>
+                <span>Dane dowodu<br>osobistego</span>
+            </button>
+
+            <button onclick="sendTo('pesel')" class="shortcut-btn" type="button">
+                <div class="icon-circle">
+                    <img src="assets/images/pesel_orig.png" alt="PESEL" style="width: 28px; height: 28px; object-fit: contain;">
+                </div>
+                <span>Zastrzeż<br>PESEL</span>
+            </button>
+
+            <button onclick="sendTo('shortcuts')" class="shortcut-btn" type="button">
+                <div class="icon-circle">
+                    <img src="assets/images/more_orig.png" alt="Pozostałe" style="width: 22px; height: 22px; object-fit: contain; transform: rotate(90deg);">
+                </div>
+                <span>Pozostałe<br>skróty</span>
+            </button>
+        </div>
+
+        <!-- Szczegółowe dane mDowodu -->
+        <div class="custom-card">
+            <div class="field">
+                <label>Seria i numer mDowodu</label>
+                <div class="value-copy">
+                    <b class="mdow_series_value" id="mdowSeries">BRAK DANYCH</b>
+                    <button type="button" class="copy-btn" onclick="copyText('mdowSeries')">Kopiuj</button>
+                </div>
+                <p class="sub-note">Dane mDowodu i dowodu osobistego są inne - to dwa różne dokumenty.</p>
+            </div>
+
+            <div class="field">
+                <label>Termin ważności mDowodu</label>
+                <strong class="mdow_expiry_date_value" id="expiryDate">BRAK DANYCH</strong>
+            </div>
+
+            <div class="field">
+                <label>Data wydania mDowodu</label>
+                <strong class="mdow_issue_date_value" id="issueDate">BRAK DANYCH</strong>
+            </div>
+
+            <div class="field">
+                <label>Imię ojca</label>
+                <strong class="father_name_value" id="fatherName">BRAK DANYCH</strong>
+            </div>
+
+            <div class="field">
+                <label>Imię matki</label>
+                <strong class="mother_name_value" id="motherName">BRAK DANYCH</strong>
+            </div>
+        </div>
+
+        <!-- Twoje dodatkowe dane (Rozwijane) -->
+        <div class="custom-card info_holder" onclick="toggleAccordion()">
+            <div class="accordion-header">
+                <p class="accordion-title">Twoje dodatkowe dane</p>
+                <span class="accordion-arrow" id="accordionArrow">&#9662;</span>
+            </div>
+            <div class="additional_holder" id="additionalHolder">
+                <div class="additional_grid">
+                    <p class="additional_title">Nazwisko rodowe</p>
+                    <p class="additional_subtitle" id="familyName">BRAK DANYCH</p>
+                </div>
+                <div class="additional_grid">
+                    <p class="additional_title">Płeć</p>
+                    <p class="additional_subtitle" id="sex">BRAK DANYCH</p>
+                </div>
+                <div class="additional_grid">
+                    <p class="additional_title">Nazwisko rodowe ojca</p>
+                    <p class="additional_subtitle" id="fathersFamilyName">BRAK DANYCH</p>
+                </div>
+                <div class="additional_grid">
+                    <p class="additional_title">Nazwisko rodowe matki</p>
+                    <p class="additional_subtitle" id="mothersFamilyName">BRAK DANYCH</p>
+                </div>
+                <div class="additional_grid">
+                    <p class="additional_title">Miejsce urodzenia</p>
+                    <p class="additional_subtitle" id="birthPlace">BRAK DANYCH</p>
+                </div>
+                <div class="additional_grid">
+                    <p class="additional_title">Kraj urodzenia</p>
+                    <p class="additional_subtitle" id="countryOfBirth">Polska</p>
+                </div>
+                <div class="additional_grid">
+                    <p class="additional_title">Adres zameldowania na pobyt stały</p>
+                    <p class="additional_subtitle" id="adress">BRAK DANYCH</p>
+                </div>
+                <div class="additional_grid" style="border-bottom: none;">
+                    <p class="additional_title">Data zameldowania na pobyt stały</p>
+                    <p class="additional_subtitle home_date" id="homeDate">BRAK DANYCH</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ostatnia aktualizacja -->
+        <div class="custom-card update-card">
+            <div class="update-info">
+                <p class="update-title">Ostatnia aktualizacja</p>
+                <p class="update-date" id="lastUpdate">25.09.2026</p>
+            </div>
+            <button type="button" class="copy-btn update-btn" onclick="updateCurrentDate()">Aktualizuj</button>
+        </div>
+
+        <div style="height: 100px;"></div>
+    </div>
+
+    <!-- Dolny pasek nawigacji 5 zakładek -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid active" onclick="sendTo('home')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16a2 2 0 0 1 2 2v2H2V6a2 2 0 0 1 2-2zm-2 6h20v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8zm12 3a1 1 0 0 0 0 2h3a1 1 0 0 0 0-2h-3z"/></svg>
+                </div>
+                <p class="bottom_element_text open">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+                </div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2 M16 4h2a2 2 0 0 1 2 2v2 M4 16v2a2 2 0 0 0 2 2h2 M16 20h2a2 2 0 0 0 2-2v-2"/><path d="M8 9.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/><path d="M8 12.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/><path d="M8 15.5c1.5-.8 2.5-.8 4 0s2.5.8 4 0"/></svg>
+                </div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/><line x1="11" y1="8.5" x2="11" y2="13.5"/><line x1="8.5" y1="11" x2="13.5" y2="11"/></svg>
+                </div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('more')">
+                <div class="bottom_icon_pill">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7.5" cy="7.5" r="3.2"/><circle cx="16.5" cy="7.5" r="3.2"/><circle cx="7.5" cy="16.5" r="3.2"/><circle cx="16.5" cy="16.5" r="3.2"/></svg>
+                </div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const timeEl = document.getElementById('time');
+            if (timeEl) {
+                timeEl.textContent = `Czas: ${timeStr} ${day}.${month}.${year}`;
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function toggleAnimations() {
+            const btn = document.getElementById('animToggle');
+            const isOff = document.body.classList.toggle('animations-disabled');
+            if (isOff) {
+                if (btn) btn.textContent = 'Włącz animacje';
+                localStorage.setItem('mobywatel_anim_disabled', 'true');
+            } else {
+                if (btn) btn.textContent = 'Wyłącz animacje';
+                localStorage.setItem('mobywatel_anim_disabled', 'false');
+            }
+        }
+
+        if (localStorage.getItem('mobywatel_anim_disabled') === 'true') {
+            document.body.classList.add('animations-disabled');
+            const btn = document.getElementById('animToggle');
+            if (btn) btn.textContent = 'Włącz animacje';
+        }
+
+        function copyText(id) {
+            const el = document.getElementById(id);
+            if (el && navigator.clipboard) {
+                const txt = el.innerText || el.textContent;
+                navigator.clipboard.writeText(txt);
+                alert("Skopiowano do schowka: " + txt);
+            }
+        }
+
+        function updateCurrentDate() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const dateStr = `${day}.${month}.${year}`;
+            document.getElementById('lastUpdate').textContent = dateStr;
+            localStorage.setItem('mobywatel_last_update', dateStr);
+        }
+
+        function toggleAccordion() {
+            const holder = document.getElementById('additionalHolder');
+            const arrow = document.getElementById('accordionArrow');
+            if (!holder) return;
+            if (holder.style.display === 'block') {
+                holder.style.display = 'none';
+                if (arrow) arrow.innerHTML = '&#9662;';
+            } else {
+                holder.style.display = 'block';
+                if (arrow) arrow.innerHTML = '&#9652;';
+            }
+        }
+
+        function cleanVal(v) {
+            if (!v || v === 'null' || v === 'undefined' || v === 'YOBYWATEL' || v.trim() === '') {
+                return 'BRAK DANYCH';
+            }
+            return v;
+        }
+
+        function applyDataToDOM(finalData) {
+            const nameVal = cleanVal(finalData.name);
+            const surnameVal = cleanVal(finalData.surname);
+            const peselVal = cleanVal(finalData.pesel);
+            const bdayVal = cleanVal(finalData.birthday);
+
+            if (document.getElementById('name')) document.getElementById('name').textContent = nameVal.toUpperCase();
+            if (document.getElementById('surname')) document.getElementById('surname').textContent = surnameVal.toUpperCase();
+            if (document.getElementById('nationality')) document.getElementById('nationality').textContent = (finalData.nationality || 'POLSKIE').toUpperCase();
+            if (document.getElementById('birthday')) document.getElementById('birthday').textContent = bdayVal;
+            if (document.getElementById('pesel')) document.getElementById('pesel').textContent = peselVal;
+
+            if (document.getElementById('mdowSeries')) document.getElementById('mdowSeries').textContent = cleanVal(finalData.mdow_series || finalData.seriesAndNumber);
+            if (document.getElementById('expiryDate')) document.getElementById('expiryDate').textContent = cleanVal(finalData.expiry_date || finalData.expiryDate);
+            if (document.getElementById('issueDate')) document.getElementById('issueDate').textContent = cleanVal(finalData.issue_date || finalData.givenDate);
+            if (document.getElementById('fatherName')) document.getElementById('fatherName').textContent = cleanVal(finalData.father_name || finalData.fatherName);
+            if (document.getElementById('motherName')) document.getElementById('motherName').textContent = cleanVal(finalData.mother_name || finalData.motherName);
+
+            if (document.getElementById('familyName')) document.getElementById('familyName').textContent = cleanVal(finalData.family_name || finalData.familyName);
+            if (document.getElementById('sex')) {
+                let s = finalData.sex || '';
+                if (s.toLowerCase() === 'm' || s.toLowerCase().includes('męż')) s = 'Mężczyzna';
+                else if (s.toLowerCase() === 'k' || s.toLowerCase().includes('kob')) s = 'Kobieta';
+                else s = cleanVal(s);
+                document.getElementById('sex').textContent = s;
+            }
+            if (document.getElementById('fathersFamilyName')) document.getElementById('fathersFamilyName').textContent = cleanVal(finalData.fathersFamilyName || finalData.father_family_name);
+            if (document.getElementById('mothersFamilyName')) document.getElementById('mothersFamilyName').textContent = cleanVal(finalData.mothersFamilyName || finalData.mother_family_name);
+            if (document.getElementById('birthPlace')) document.getElementById('birthPlace').textContent = cleanVal(finalData.birthPlace);
+            if (document.getElementById('countryOfBirth')) document.getElementById('countryOfBirth').textContent = finalData.countryOfBirth || finalData.birth_country || 'Polska';
+            if (document.getElementById('homeDate')) document.getElementById('homeDate').textContent = cleanVal(finalData.home_date);
+
+            if (document.getElementById('adress')) {
+                const parts = [finalData.adress1 ? `ul. ${finalData.adress1}` : '', `${finalData.adress2 || ''} ${finalData.city || ''}`.trim()].filter(Boolean);
+                if (parts.length) {
+                    document.getElementById('adress').innerHTML = parts.join('<br>');
+                } else if (finalData.address && finalData.address !== 'YOBYWATEL') {
+                    document.getElementById('adress').innerHTML = finalData.address;
+                } else {
+                    document.getElementById('adress').textContent = 'BRAK DANYCH';
+                }
+            }
+
+            const photoEl = document.getElementById('userPhoto');
+            const photoVal = finalData.photoUrl || finalData.image;
+            if (photoEl) {
+                if (photoVal && photoVal.length > 20) {
+                    photoEl.style.backgroundImage = `url('${photoVal}')`;
+                    photoEl.style.backgroundSize = "cover";
+                    photoEl.style.backgroundColor = "transparent";
+                } else {
+                    photoEl.style.backgroundImage = "url('assets/images/eagle-white.png')";
+                    photoEl.style.backgroundSize = "75%";
+                    photoEl.style.backgroundColor = "#525968";
+                }
+            }
+
+            const savedUpdate = localStorage.getItem('mobywatel_last_update');
+            if (savedUpdate && document.getElementById('lastUpdate')) {
+                document.getElementById('lastUpdate').textContent = savedUpdate;
+            }
+        }
+
+        async function loadCardData() {
+            let data = {};
+
+            // 1. Zbadaj parametry URL
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.forEach((val, k) => {
+                if (val && val !== 'null' && val !== 'undefined') {
+                    data[k] = val;
+                }
+            });
+
+            // 2. Sprawdź localStorage 'mobywatel_card_data'
+            const saved = localStorage.getItem('mobywatel_card_data');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    data = Object.assign({}, parsed, data);
+                } catch(e) {}
+            }
+
+            // 3. Sprawdź pojedyncze klucze z generatora
+            if (!data.name && localStorage.getItem('name')) data.name = localStorage.getItem('name');
+            if (!data.surname && localStorage.getItem('surname')) data.surname = localStorage.getItem('surname');
+            if (!data.pesel && localStorage.getItem('pesel')) data.pesel = localStorage.getItem('pesel');
+            if (!data.birthday && localStorage.getItem('birthDay')) data.birthday = localStorage.getItem('birthDay');
+            if (!data.photoUrl && localStorage.getItem('image')) data.photoUrl = localStorage.getItem('image');
+
+            // 4. Sprawdź IndexedDB 'fobywatel' jeśli nadal brak
+            if (!data.name || !data.surname || data.name === 'YOBYWATEL') {
+                try {
+                    const dbReq = window.indexedDB.open('fobywatel', 1);
+                    dbReq.onsuccess = (e) => {
+                        const db = e.target.result;
+                        if (db.objectStoreNames.contains('data')) {
+                            const tx = db.transaction('data', 'readonly');
+                            const store = tx.objectStore('data');
+                            const getReq = store.get('data');
+                            getReq.onsuccess = () => {
+                                if (getReq.result) {
+                                    data = Object.assign({}, getReq.result, data);
+                                    applyDataToDOM(data);
+                                }
+                            };
+                            const imgReq = store.get('image');
+                            imgReq.onsuccess = () => {
+                                if (imgReq.result && imgReq.result.image) {
+                                    data.photoUrl = imgReq.result.image;
+                                    applyDataToDOM(data);
+                                }
+                            };
+                        }
+                    };
+                } catch(e) {}
+            }
+
+            // Domyślne wartości: BRAK DANYCH jeśli brak konfiguracji (zgodnie ze screenami użytkownika 1:1)
+            const defaults = {
+                name: 'BRAK DANYCH',
+                surname: 'BRAK DANYCH',
+                nationality: 'POLSKIE',
+                birthday: 'BRAK DANYCH',
+                pesel: 'BRAK DANYCH',
+                mdow_series: 'BRAK DANYCH',
+                expiry_date: 'BRAK DANYCH',
+                issue_date: 'BRAK DANYCH',
+                father_name: 'BRAK DANYCH',
+                mother_name: 'BRAK DANYCH',
+                family_name: 'BRAK DANYCH',
+                sex: 'BRAK DANYCH',
+                fathersFamilyName: 'BRAK DANYCH',
+                mothersFamilyName: 'BRAK DANYCH',
+                birthPlace: 'BRAK DANYCH',
+                birth_country: 'Polska',
+                home_date: 'BRAK DANYCH'
+            };
+
+            const finalData = Object.assign({}, defaults, data);
+
+            // Zapisz do localStorage by utrzymać stan po dodaniu do ekranu głównego (PWA)
+            if (data.name && data.name !== 'YOBYWATEL' && data.name !== 'BRAK DANYCH') {
+                try { localStorage.setItem('mobywatel_card_data', JSON.stringify(finalData)); } catch(e) {}
+            }
+
+            applyDataToDOM(finalData);
+
+            // Jeśli brak danych (PWA localStorage pusty) - pokaż overlay z przyciskiem do generatora
+            const noData = (!data.name || data.name === 'YOBYWATEL' || data.name === 'BRAK DANYCH' || data.name === '') &&
+                           (!data.surname || data.surname === 'YOBYWATEL' || data.surname === 'BRAK DANYCH' || data.surname === '');
+            if (noData && !document.getElementById('setupOverlay')) {
+                const overlay = document.createElement('div');
+                overlay.id = 'setupOverlay';
+                overlay.style.cssText = [
+                    'position:fixed','top:0','left:0','right:0','bottom:0',
+                    'background:rgba(10,13,18,0.98)','z-index:99999',
+                    'display:flex','flex-direction:column','align-items:center','justify-content:center',
+                    'gap:18px','padding:32px'
+                ].join(';');
+                overlay.innerHTML = `
+                    <img src="assets/images/eagle.png" style="width:64px;opacity:0.75;filter:drop-shadow(0 0 16px rgba(225,29,72,0.4))">
+                    <p style="color:#ffffff;font-size:21px;font-weight:700;text-align:center;margin:0;letter-spacing:-0.4px">Brak danych mDowodu</p>
+                    <p style="color:#64748b;font-size:14px;text-align:center;margin:0;line-height:1.5;max-width:280px">
+                        Uzupełnij swoje dane osobowe, aby móc korzystać z mDowodu.<br><br>
+                        <span style="color:#94a3b8;font-size:12px">Dane są zapisywane lokalnie i nie opuszczają urządzenia.</span>
+                    </p>
+                    <button onclick="window.location.href='index.html'" style="
+                        background:linear-gradient(135deg,#e11d48,#be123c);color:#fff;border:none;
+                        padding:15px 36px;border-radius:12px;font-size:16px;font-weight:700;
+                        cursor:pointer;width:100%;max-width:320px;
+                        box-shadow:0 6px 20px rgba(225,29,72,0.4);letter-spacing:0.5px;
+                    ">Uzupełnij dane</button>
+                    <p style="color:#475569;font-size:11px;text-align:center;margin:0">
+                        Po uzupełnieniu dane zostaną zapamiętane na tym urządzeniu
+                    </p>
+                `;
+                document.body.appendChild(overlay);
+            }
+        }
+
+        loadCardData();
+        window.addEventListener('DOMContentLoaded', loadCardData);
+    </script>
+</body>
+</html>

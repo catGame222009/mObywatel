@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Zeskanuj kod QR - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .scanqr-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding-bottom: 90px;
+        }
+        .scanqr-desc {
+            font-size: 14px;
+            color: #ffffff;
+            text-align: center;
+            margin: 24px 20px 30px;
+            font-weight: 400;
+        }
+        .scan-viewfinder {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 40px auto 60px auto;
+        }
+        .corner {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-color: #ffffff;
+            border-style: solid;
+        }
+        .corner.tl { top: 0; left: 0; border-width: 3.5px 0 0 3.5px; border-top-left-radius: 18px; }
+        .corner.tr { top: 0; right: 0; border-width: 3.5px 3.5px 0 0; border-top-right-radius: 18px; }
+        .corner.bl { bottom: 0; left: 0; border-width: 0 0 3.5px 3.5px; border-bottom-left-radius: 18px; }
+        .corner.br { bottom: 0; right: 0; border-width: 0 3.5px 3.5px 0; border-bottom-right-radius: 18px; }
+        .scan-laser {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #388af6, transparent);
+            box-shadow: 0 0 8px #388af6;
+            animation: laserScan 2s infinite alternate ease-in-out;
+        }
+        @keyframes laserScan {
+            0% { top: 15px; opacity: 0.4; }
+            100% { top: 230px; opacity: 1; }
+        }
+        .type-code-btn {
+            background: transparent;
+            border: 1.5px solid #388af6;
+            color: #388af6;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 14px 28px;
+            border-radius: 28px;
+            width: calc(100% - 48px);
+            margin: 0 auto;
+            display: block;
+            cursor: pointer;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanqr-wrapper">
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('qr')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Kod QR</span>
+            </div>
+            <h1 class="title_text" style="font-size: 16px;">Zeskanuj kod QR</h1>
+            <div class="help_icon_btn" onclick="sendTo('more')">?</div>
+        </header>
+
+        <p class="scanqr-desc">
+            Umieść kod QR w ramce, aby go zeskanować.
+        </p>
+
+        <div class="scan-viewfinder">
+            <div class="corner tl"></div>
+            <div class="corner tr"></div>
+            <div class="corner bl"></div>
+            <div class="corner br"></div>
+            <div class="scan-laser"></div>
+        </div>
+
+        <button type="button" class="type-code-btn" onclick="promptCode()">Wpisz kod</button>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr_open qr"></div>
+                <p class="bottom_element_text open">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('more')">
+                <div class="bottom_element_image more"></div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        function promptCode() {
+            const code = prompt("Wpisz kod weryfikacyjny:");
+            if (code) {
+                alert("Kod przyjęty: " + code);
+            }
+        }
+    </script>
+</body>
+</html>

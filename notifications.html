@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Powiadomienia - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <style>
+        .app-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .section-label {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 18px 4px 10px;
+        }
+        .settings-card {
+            background: var(--bg-card);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        }
+        .settings-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+        .settings-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 80%;
+        }
+        .settings-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .settings-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        /* iOS Toggle Switch */
+        .ios-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            flex-shrink: 0;
+        }
+        .ios-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #393e46;
+            transition: .3s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        input:checked + .slider {
+            background-color: #34c759;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        .top_grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 16px 0;
+        }
+        .action_grid {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--accent-blue);
+        }
+        .back_chevron { font-size: 20px; }
+        .back_text { font-size: 16px; }
+        .title_text {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('more')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Więcej</span>
+            </div>
+            <h1 class="title_text">Powiadomienia</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="section-label">Powiadomienia w aplikacji</div>
+        <div class="settings-card">
+            <div class="settings-row">
+                <div class="settings-info">
+                    <span class="settings-title">Ważne komunikaty</span>
+                    <span class="settings-desc">Informacje o zmianach w dokumentach i bezpieczeństwie.</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="settings-row">
+                <div class="settings-info">
+                    <span class="settings-title">Terminy ważności</span>
+                    <span class="settings-desc">Przypomnienia o upływie ważności dokumentów.</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="settings-row">
+                <div class="settings-info">
+                    <span class="settings-title">Nowości i aktualizacje</span>
+                    <span class="settings-desc">Informacje o nowych usługach i funkcjach aplikacji.</span>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('more')">
+                <div class="bottom_element_image more_open more"></div>
+                <p class="bottom_element_text open">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Wygląd - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .app-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .section-label {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 18px 4px 10px;
+        }
+        .radio-card-group {
+            background: var(--bg-card);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        }
+        .radio-row {
+            display: flex;
+            align-items: flex-start;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .radio-row:last-child {
+            border-bottom: none;
+        }
+        .radio-row:active {
+            background: rgba(255, 255, 255, 0.04);
+        }
+        html.theme-light .radio-row:active {
+            background: rgba(0, 0, 0, 0.04);
+        }
+        .custom-radio {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #5c6474;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: all 0.2s ease;
+        }
+        .custom-radio.checked {
+            border-color: var(--accent-blue);
+        }
+        .custom-radio.checked::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+        }
+        .radio-text-col { flex-grow: 1; }
+        .radio-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .radio-subtitle {
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .top_grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 16px 0;
+        }
+        .action_grid {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--accent-blue);
+        }
+        .back_chevron { font-size: 20px; }
+        .back_text { font-size: 16px; }
+        .title_text {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('more')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Więcej</span>
+            </div>
+            <h1 class="title_text">Wygląd</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="section-label">Kolorystyka</div>
+        <div class="radio-card-group">
+            <div class="radio-row" onclick="selectTheme('light')">
+                <div class="custom-radio" id="radio-light"></div>
+                <div class="radio-text-col">
+                    <div class="radio-title">Tryb jasny</div>
+                </div>
+            </div>
+            <div class="radio-row" onclick="selectTheme('dark')">
+                <div class="custom-radio" id="radio-dark"></div>
+                <div class="radio-text-col">
+                    <div class="radio-title">Tryb ciemny</div>
+                </div>
+            </div>
+            <div class="radio-row" onclick="selectTheme('system')">
+                <div class="custom-radio" id="radio-system"></div>
+                <div class="radio-text-col">
+                    <div class="radio-title">Używaj ustawień urządzenia</div>
+                    <div class="radio-subtitle">Tryby jasny i ciemny będą się włączać zgodnie z ustawieniami urządzenia.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('more')">
+                <div class="bottom_element_image more_open more"></div>
+                <p class="bottom_element_text open">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        function updateRadioUI() {
+            var cur = localStorage.getItem('mobywatel_theme') || 'system';
+            ['light', 'dark', 'system'].forEach(function(mode) {
+                var el = document.getElementById('radio-' + mode);
+                if (el) {
+                    if (mode === cur) el.classList.add('checked');
+                    else el.classList.remove('checked');
+                }
+            });
+        }
+
+        function selectTheme(mode) {
+            localStorage.setItem('mobywatel_theme', mode);
+            applyTheme();
+            updateRadioUI();
+        }
+
+        document.addEventListener('DOMContentLoaded', updateRadioUI);
+    </script>
+</body>
+</html>

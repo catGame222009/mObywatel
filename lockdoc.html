@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Zastrzeż dokument - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .page-sub-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .page-badge-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+        .bg-purple { background: #2a163e; color: #b05af8; }
+        .bg-red { background: #3b1717; color: #f85a5a; }
+        .page-big-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            letter-spacing: -0.3px;
+        }
+        .page-big-desc {
+            font-size: 14px;
+            line-height: 1.45;
+            color: #8c93a0;
+            margin-bottom: 26px;
+        }
+        .page-card-menu {
+            background: #171a20;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .page-menu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #388af6;
+        }
+        .page-menu-row:last-child {
+            border-bottom: none;
+        }
+        .page-menu-row .chevron {
+            color: #388af6;
+            font-size: 20px;
+            font-weight: 300;
+        }
+        .info-blue-box {
+            background: #0f1c2e;
+            border-radius: 18px;
+            padding: 18px 18px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .info-blue-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #1e6bf1;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .info-blue-text {
+            font-size: 13px;
+            line-height: 1.45;
+            color: #8c93a0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-sub-wrapper">
+        <header class="top_grid" style="padding: 10px 0 20px;">
+            <div class="action_grid" onclick="sendTo('services')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Usługi</span>
+            </div>
+            <h1 class="title_text" style="font-size: 16px;">Zastrzeż dokument</h1>
+            <div style="width: 22px;"></div>
+        </header>
+
+        <div class="page-badge-icon bg-purple">💳</div>
+        <h1 class="page-big-title">Zastrzeż utracony dokument w bankach i innych firmach</h1>
+        <p class="page-big-desc">
+            Skorzystaj z usługi, jeśli Twój dokument zaginął lub ktoś nieuprawniony wykorzystał Twoje dane. Zastrzeżenie można cofnąć.
+        </p>
+
+        <div class="page-card-menu">
+            <div class="page-menu-row" onclick="alert('Wybrano Dowód osobisty')">
+                <span>Dowód osobisty</span>
+                <span class="chevron">&gt;</span>
+            </div>
+            <div class="page-menu-row" onclick="alert('Wybrano Paszport')">
+                <span>Paszport</span>
+                <span class="chevron">&gt;</span>
+            </div>
+            <div class="page-menu-row" onclick="alert('Wybrano Prawo jazdy')">
+                <span>Prawo jazdy</span>
+                <span class="chevron">&gt;</span>
+            </div>
+        </div>
+
+        <div class="info-blue-box">
+            <div class="info-blue-icon">i</div>
+            <p class="info-blue-text">
+                Zgłoszenie trafi do Systemu Dokumenty Zastrzeżone Związku Banków Polskich. To ogólnopolska baza zgubionych i skradzionych dokumentów. Korzystają z niej banki, operatorzy komórkowi oraz inne firmy i instytucje.
+            </p>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('services')">
+                <div class="bottom_element_image services_open services"></div>
+                <p class="bottom_element_text open">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('more')">
+                <div class="bottom_element_image more"></div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+</body>
+</html>

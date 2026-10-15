@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Poradnik bezpieczeństwa - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .page-sub-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .page-crest-circle {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #d8232a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 26px;
+            box-shadow: 0 4px 14px rgba(216, 35, 42, 0.35);
+        }
+        .page-big-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+        .page-big-desc {
+            font-size: 14px;
+            line-height: 1.45;
+            color: #8c93a0;
+            margin-bottom: 26px;
+        }
+        .guide-card {
+            background: #171a20;
+            border-radius: 20px;
+            padding: 22px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+        }
+        .guide-icon {
+            font-size: 24px;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+        .guide-title {
+            font-size: 16.5px;
+            font-weight: 600;
+            color: #ffffff;
+            flex-grow: 1;
+        }
+        .guide-chevron {
+            font-size: 20px;
+            color: #5c6474;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-sub-wrapper">
+        <header class="top_grid" style="padding: 10px 0 20px;">
+            <div class="action_grid" onclick="sendTo('services')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Usługi</span>
+            </div>
+            <h1 class="title_text" style="font-size: 16px;">Poradnik bezpieczeństwa</h1>
+            <div style="width: 22px;"></div>
+        </header>
+
+        <div class="page-crest-circle">📖</div>
+        <h1 class="page-big-title">Jak przygotować się na kryzys</h1>
+        <p class="page-big-desc">
+            Zapoznaj się z oficjalnymi poradami, jak zadbać o bezpieczeństwo.
+        </p>
+
+        <div class="guide-card" onclick="alert('Zasady bezpieczeństwa w sytuacjach kryzysowych')">
+            <div class="guide-icon">📖</div>
+            <div class="guide-title">Zasady bezpieczeństwa</div>
+            <div class="guide-chevron">&gt;</div>
+        </div>
+
+        <div class="guide-card" onclick="alert('Lista wyposażenia plecaka ewakuacyjnego')">
+            <div class="guide-icon">🎒</div>
+            <div class="guide-title">Plecak ewakuacyjny</div>
+            <div class="guide-chevron">&gt;</div>
+        </div>
+
+        <div class="guide-card" onclick="alert('Sygnały alarmowe i komunikaty ostrzegawcze')">
+            <div class="guide-icon">📢</div>
+            <div class="guide-title">Sygnały alarmowe</div>
+            <div class="guide-chevron">&gt;</div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('services')">
+                <div class="bottom_element_image services_open services"></div>
+                <p class="bottom_element_text open">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('more')">
+                <div class="bottom_element_image more"></div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+</body>
+</html>

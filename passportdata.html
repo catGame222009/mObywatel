@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Dane paszportu - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .passport-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 20px 100px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .update-time-small {
+            font-size: 13px;
+            color: #8c93a0;
+            margin: 12px 0 60px;
+        }
+        .passport-icon-big {
+            width: 80px;
+            height: 100px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a855f7;
+        }
+        .passport-icon-big svg {
+            width: 80px;
+            height: 100px;
+            stroke: #a855f7;
+            fill: none;
+        }
+        .passport-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+        .passport-subtitle {
+            font-size: 14.5px;
+            line-height: 1.45;
+            color: #8c93a0;
+            margin-bottom: 60px;
+            padding: 0 10px;
+        }
+        .passport-action-btn {
+            background: #388af6;
+            color: #ffffff;
+            border: none;
+            border-radius: 26px;
+            padding: 15px 0;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(56, 138, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="passport-wrapper">
+        <header class="top_grid" style="padding: 10px 0;">
+            <div class="action_grid" onclick="sendTo('more')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Więcej</span>
+            </div>
+            <h1 class="title_text" style="font-size: 16px;">Dane paszportu</h1>
+            <div style="width: 22px;"></div>
+        </header>
+
+        <p class="update-time-small" id="passUpdateTime">Ostatnia aktualizacja: 25.09.2026 17:00:58</p>
+
+        <div class="passport-icon-big">
+            <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="3"></rect>
+                <circle cx="12" cy="10" r="3"></circle>
+                <rect x="9" y="15" width="6" height="2" rx="1"></rect>
+            </svg>
+        </div>
+
+        <h2 class="passport-title">Nie masz żadnego paszportu</h2>
+        <p class="passport-subtitle">
+            Wniosek o paszport możesz złożyć w dowolnym punkcie paszportowym.
+        </p>
+
+        <button type="button" class="passport-action-btn" onclick="updatePassportData()">Aktualizuj dane</button>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('more')">
+                <div class="bottom_element_image more_open more"></div>
+                <p class="bottom_element_text open">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        function updatePassportData() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('pl-PL') + ' ' + now.toLocaleTimeString('pl-PL');
+            document.getElementById('passUpdateTime').textContent = 'Ostatnia aktualizacja: ' + dateStr;
+            alert('Dane paszportowe zaktualizowane.');
+        }
+    </script>
+</body>
+</html>

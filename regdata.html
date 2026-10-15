@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Dane zameldowania - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .reg-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding: 16px 18px 100px;
+            box-sizing: border-box;
+        }
+        .reg-stay-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 18px 4px 14px;
+        }
+        .reg-data-card {
+            background: #171a20;
+            border-radius: 20px;
+            padding: 14px 20px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        }
+        .reg-row {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .reg-row:last-child {
+            border-bottom: none;
+        }
+        .reg-label {
+            font-size: 13px;
+            color: #8c93a0;
+            margin-bottom: 4px;
+        }
+        .reg-value {
+            font-size: 16.5px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="reg-wrapper">
+        <header class="top_grid" style="padding: 10px 0;">
+            <div class="action_grid" onclick="sendTo('more')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Więcej</span>
+            </div>
+            <h1 class="title_text" style="font-size: 16px;">Dane zameldowania</h1>
+            <div style="width: 22px;"></div>
+        </header>
+
+        <h2 class="reg-stay-title">Pobyt stały</h2>
+
+        <div class="reg-data-card">
+            <div class="reg-row">
+                <div class="reg-label">Data zameldowania</div>
+                <div class="reg-value" id="regDate">01.01.2000</div>
+            </div>
+            <div class="reg-row">
+                <div class="reg-label">Miejscowość</div>
+                <div class="reg-value" id="regCity">Warszawa</div>
+            </div>
+            <div class="reg-row">
+                <div class="reg-label">Kod pocztowy</div>
+                <div class="reg-value" id="regPostal">42-250</div>
+            </div>
+            <div class="reg-row">
+                <div class="reg-label">Ulica</div>
+                <div class="reg-value" id="regStreet">Chopina</div>
+            </div>
+            <div class="reg-row">
+                <div class="reg-label">Numer domu</div>
+                <div class="reg-value" id="regHouse">4</div>
+            </div>
+            <div class="reg-row">
+                <div class="reg-label">Numer lokalu</div>
+                <div class="reg-value" id="regApartment">56</div>
+            </div>
+            <div class="reg-row">
+                <div class="reg-label">Województwo</div>
+                <div class="reg-value" id="regVoivodeship">MAZOWIECKIE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dolny pasek nawigacji -->
+    <nav class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" onclick="sendTo('home')">
+                <div class="bottom_element_image home"></div>
+                <p class="bottom_element_text">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('services')">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('qr')">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" onclick="sendTo('search')">
+                <div class="bottom_element_image search_nav"></div>
+                <p class="bottom_element_text">Szukaj</p>
+            </div>
+            <div class="bottom_element_grid active" onclick="sendTo('more')">
+                <div class="bottom_element_image more_open more"></div>
+                <p class="bottom_element_text open">Więcej</p>
+            </div>
+        </div>
+    </nav>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('mobywatel_card_data');
+            if (saved) {
+                try {
+                    const d = JSON.parse(saved);
+                    if (d.home_date) document.getElementById('regDate').textContent = d.home_date;
+                    if (d.city) document.getElementById('regCity').textContent = d.city;
+                    if (d.adress2) document.getElementById('regPostal').textContent = d.adress2;
+                    if (d.adress1) {
+                        const parts = d.adress1.split(' ');
+                        document.getElementById('regStreet').textContent = parts[0] || d.adress1;
+                        if (parts[1]) {
+                            const sub = parts[1].split('/');
+                            document.getElementById('regHouse').textContent = sub[0] || '-';
+                            document.getElementById('regApartment').textContent = sub[1] || '-';
+                        }
+                    }
+                } catch(e) {}
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Wybierz dokumenty - mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=2.0">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#101419">
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        .selectdocs-wrapper {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            padding-bottom: 110px;
+            box-sizing: border-box;
+        }
+        .search-box-round {
+            background: #171a20;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 12px;
+            margin: 14px 16px 20px;
+        }
+        .search-box-round input {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 15px;
+            width: 100%;
+            outline: none;
+        }
+        .select-note {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 600;
+            margin: 0 16px 14px;
+        }
+        .docs-list-card {
+            background: #171a20;
+            border-radius: 20px;
+            margin: 0 16px;
+            overflow: hidden;
+        }
+        .doc-check-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 14px;
+            cursor: pointer;
+        }
+        .doc-check-item:last-child {
+            border-bottom: none;
+        }
+        .custom-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid #5c6474;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.15s ease;
+        }
+        .custom-checkbox.checked {
+            background: #388af6;
+            border-color: #388af6;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .doc-card-thumb {
+            width: 44px;
+            height: 28px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .doc-name {
+            font-size: 14.5px;
+            font-weight: 500;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+        .bottom-action-fixed {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .add-selected-btn {
+            background: #388af6;
+            color: #ffffff;
+            border: none;
+            border-radius: 26px;
+            padding: 14px 0;
+            font-size: 16px;
+            font-weight: 600;
+            width: calc(100% - 32px);
+            max-width: 382px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(56, 138, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="selectdocs-wrapper">
+        <header class="top_grid">
+            <div class="action_grid" onclick="sendTo('home')">
+                <span class="back_chevron">&lt;</span>
+                <span class="back_text">Wróć</span>
+            </div>
+            <h1 class="title_text" style="font-size: 16px;">Wybierz dokumenty</h1>
+            <div style="width: 22px;"></div>
+        </header>
+
+        <div class="search-box-round">
+            <span style="color: #8c93a0;">🔍</span>
+            <input type="text" placeholder="Szukaj">
+        </div>
+
+        <p class="select-note">Zaznacz, które dokumenty chcesz dodać.</p>
+
+        <div class="docs-list-card">
+            <!-- mDowód -->
+            <div class="doc-check-item" data-id="mdowod" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #1e40af, #3b82f6);"></div>
+                <span class="doc-name">mDowód</span>
+            </div>
+            <!-- mPrawo jazdy -->
+            <div class="doc-check-item" data-id="driver" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #701a75, #dc2626);"></div>
+                <span class="doc-name">mPrawo jazdy</span>
+            </div>
+            <!-- Legitymacja studencka -->
+            <div class="doc-check-item" data-id="student" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #10b981, #0284c7);"></div>
+                <span class="doc-name">Legitymacja studencka</span>
+            </div>
+            <!-- Legitymacja radcy prawnego -->
+            <div class="doc-check-item" data-id="legal" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #1e3a8a, #0284c7);"></div>
+                <span class="doc-name">Legitymacja radcy prawnego</span>
+            </div>
+            <!-- Dokument ochrony czasowej -->
+            <div class="doc-check-item" data-id="temporary" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #0284c7, #eab308);"></div>
+                <span class="doc-name">Dokument ochrony czasowej</span>
+            </div>
+            <!-- Legitymacja szkolna -->
+            <div class="doc-check-item" data-id="school" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #0284c7, #e11d48);"></div>
+                <span class="doc-name">Legitymacja szkolna</span>
+            </div>
+            <!-- Legitymacja inżyniera budownictwa -->
+            <div class="doc-check-item" data-id="builder" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #a83232, #4a154b);"></div>
+                <span class="doc-name">Legitymacja inżyniera budownictwa</span>
+            </div>
+            <!-- Legitymacja osoby niepełnosprawnej -->
+            <div class="doc-check-item" data-id="disabled" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #10b981, #6366f1);"></div>
+                <span class="doc-name">Legitymacja osoby niepełnosprawnej</span>
+            </div>
+            <!-- Karta Dużej Rodziny -->
+            <div class="doc-check-item" data-id="largefamily" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);"></div>
+                <span class="doc-name">Karta Dużej Rodziny</span>
+            </div>
+            <!-- Legitymacja emeryta-rencisty -->
+            <div class="doc-check-item" data-id="pensioner" onclick="toggleDocItem(this)">
+                <div class="custom-checkbox"></div>
+                <div class="doc-card-thumb" style="background: linear-gradient(135deg, #059669, #10b981);"></div>
+                <span class="doc-name">Legitymacja emeryta-rencisty</span>
+            </div>
+        </div>
+
+        <div class="bottom-action-fixed">
+            <button type="button" class="add-selected-btn" onclick="saveAndGoHome()">Dodaj</button>
+        </div>
+    </div>
+
+    <script src="assets/bar.js"></script>
+    <script>
+        function getSelectedDocs() {
+            try {
+                const s = localStorage.getItem('mobywatel_selected_docs');
+                if (s) return JSON.parse(s);
+            } catch(e) {}
+            return ['mdowod']; // domyślnie tylko mDowód!
+        }
+
+        function initCheckboxes() {
+            const selected = getSelectedDocs();
+            document.querySelectorAll('.doc-check-item').forEach(item => {
+                const id = item.getAttribute('data-id');
+                const cb = item.querySelector('.custom-checkbox');
+                if (selected.includes(id)) {
+                    cb.classList.add('checked');
+                    cb.textContent = '✓';
+                } else {
+                    cb.classList.remove('checked');
+                    cb.textContent = '';
+                }
+            });
+        }
+
+        function toggleDocItem(el) {
+            const cb = el.querySelector('.custom-checkbox');
+            if (cb.classList.contains('checked')) {
+                cb.classList.remove('checked');
+                cb.textContent = '';
+            } else {
+                cb.classList.add('checked');
+                cb.textContent = '✓';
+            }
+        }
+
+        function saveAndGoHome() {
+            const selected = [];
+            document.querySelectorAll('.doc-check-item').forEach(item => {
+                const id = item.getAttribute('data-id');
+                const cb = item.querySelector('.custom-checkbox');
+                if (cb.classList.contains('checked')) {
+                    selected.push(id);
+                }
+            });
+            // Jeśli użytkownik odznaczył wszystko, zostaw przynajmniej mdowod
+            if (selected.length === 0) selected.push('mdowod');
+            localStorage.setItem('mobywatel_selected_docs', JSON.stringify(selected));
+            sendTo('home');
+        }
+
+        window.addEventListener('DOMContentLoaded', initCheckboxes);
+    </script>
+</body>
+</html>

