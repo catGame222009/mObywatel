@@ -1,0 +1,22 @@
+
+.title{
+    font-weight: 600;
+    font-size: 19px;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: max-content;
+    color: white;
+}
+
+.services_action{
+    margin-top: 150px;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    width: 100%;
+    height: max-content;
+}
+
+.services_action .main_button{
+    margin-right: 0;
+    margin-left: auto;
+}
