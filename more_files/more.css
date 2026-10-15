@@ -1,0 +1,31 @@
+
+.title{
+    font-weight: 600;
+    font-size: 19px;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: max-content;
+    color: white;
+}
+
+.settings{
+    margin-top: 160px !important;
+}
+
+.settings{
+    margin-top: 120px;
+}
+
+.container{
+    margin-top: 130px;
+}
+
+.service_icon{
+    width: 30px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.service{
+    grid-template-columns: 8% 77% 15%;
+}
