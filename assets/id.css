@@ -1,0 +1,235 @@
+
+body {
+    background-color: #111218;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+html, body {
+  background-color: #111218; 
+  color: #111218;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  overflow: hidden;
+}
+
+* {
+    color: #111218;
+    box-sizing: border-box;
+
+}
+.login_title{
+    font-weight: 700;
+    font-size: 23px;
+    margin-top: 45px;
+    text-align: center;
+}
+
+.password_box{
+    width: 94%;
+    margin-top: 20px;
+    height: 165px;
+    background-color: var(--background2);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    border-radius: 18px;
+}
+
+.password_grid{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    height: max-content;
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.password_text{
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+    opacity: 0.7;
+    margin-top: 20px;
+    margin-bottom: 2px;
+    z-index: 1;
+    color:rgb(255, 255, 255)
+}
+
+.input_holder{
+    position: relative;
+}
+
+.eye{
+    background-image: url('https://i.imgur.com/xWoVvtX.png');
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    right: 20px;
+    width: 35px;
+    height: 35px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.eye_close{
+    background-image: url('https://i.imgur.com/himy51O.png');
+}
+
+.password_input{
+    width: 100%;
+    height: 65px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid rgb(128, 128, 128);
+    padding: 15px;
+    font-size: 15px;
+    z-index: 0;
+    background-color: var(--background2)
+}
+
+.password_input:focus{
+    border: 2px solid var(--text);
+    caret-color: var(--text);
+    display: block;
+    z-index: 0;
+}
+
+.forgot_password{
+    color: var(--text);
+    font-size: 15px;
+    margin-top: 17px;
+    margin-right: auto;
+    margin-left: 2px;
+    font-weight: 500;
+}
+
+.bottom{
+    display: grid;
+    grid-template-columns: 100%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    grid-template-rows: max-content max-content;
+    position: absolute;
+    bottom: 20px;
+    margin-bottom: 10px;
+    margin-top: auto;
+}
+
+.login{
+    color: var(--background);
+    line-height: 60px;
+    text-align: center;
+    font-weight: 550;
+    font-size: 23px;
+    width: 100%;
+    background-color: var(--text);
+    height: 60px;
+    border-radius: 40px;
+    margin-bottom: 25px;
+}
+
+.data{
+    height: max-content;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 80px 100px calc(100% - 180px);
+    grid-template-rows: max-content;
+}
+
+.logo_text{
+    margin-top: auto;
+    z-index: 0;
+    margin-bottom: auto;
+    height: max-content;
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.welcome{
+    z-index: 0;
+    font-weight: 600;
+    font-size: 38px;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: max-content;
+    margin-top: 25px;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(https://i.imgur.com/YnVrx0r.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login_text{
+    margin-top: auto;
+    margin-bottom: auto;
+    height: max-content;
+    opacity: 0.8;
+    font-size: 22px;
+    z-index: 0;
+}
+
+.top_grid{
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-template-rows: 100%;
+    height: max-content;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.top_text{
+    display: grid;
+    grid-template-columns: 100%;
+    width: 93%;
+    height: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-rows: max-content max-content;
+    margin-bottom: 5px;
+    z-index: 0;
+}
+
+.logo{
+    width: 55px;
+    z-index: 0;
+}
+
+.logo_other{
+    height: 38px;
+    margin-left: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.version {
+    opacity: 0.5;
+    font-size: 14px;
+    width: max-content;   
+    margin: 0 auto;       
+    display: block;       
+    text-align: center;   
+}

@@ -1,0 +1,153 @@
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--background);
+    margin: 0;
+    padding: 0;
+  }
+
+  .top_grid{
+    z-index: 1;
+    background-color: var(--background);
+    position: fixed;
+    top: -10px;
+    height: 60px;
+    left: 0;
+    width: 100%;
+    display: grid;
+    margin-top: 10px;
+    grid-template-columns: repeat(3, calc(100% / 3));
+}
+
+.action_grid{
+  cursor: pointer;
+  margin-left: 10px;
+  display: grid;
+  grid-template-columns: max-content max-content;
+}
+
+.title_text{
+  font-size: 19px;
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  font-weight: 550; 
+  margin-top: auto;
+  margin-bottom: auto;
+  height: max-content;
+}
+
+.back_text{
+    color: var(--text);
+    font-weight: 500;
+    font-size: 18px;
+    height: max-content;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.back_img{
+    width: 9px;
+    margin-right: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+  
+  .titleall {
+    margin-left: 3px;
+  }
+
+ 
+  
+  .header-link {
+    color: #3366cc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  header span {
+    font-weight: 600;
+  }
+  
+  .container{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: max-content;
+    margin-top: 70px;
+    background-color: var(--background2);
+    border-radius: 15px;
+    font-size: 19px;
+}
+  
+  .title {
+    font-size: 39px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: left;
+    
+  }
+  
+  .subtitle {
+    font-size: 22px;
+    color: #5c5c5c;
+    text-align: left;
+    margin-bottom: 24px;
+    font-weight: 400;
+    
+  }
+  
+  .service{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 5% 80% 15%;
+    border-bottom: 0.5px solid rgb(201, 201, 201);
+    height: 80px;
+}
+
+.service_icon2{
+    width: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0px;
+}
+
+.service_icon{
+    width: 25px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0px;
+}
+
+.service_name{
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    height: max-content;
+    margin-left: 20px;
+    font-weight: 500;
+    
+}
+
+.container2{
+  width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: max-content;
+    margin-top: 25px;
+    background-color: var(--background2);
+    border-radius: 15px;
+    font-size: 19px;
+    color: #b90000;
+}
+
+.service2 {
+  width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 5% 80% 15%;
+    height: 80px;
+}

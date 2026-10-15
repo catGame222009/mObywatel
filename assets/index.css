@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Napis gradientowy */
+.napis {
+    font-weight: 1000;
+    font-size: 32px;
+    margin: 0;
+    text-align: center;
+    background: linear-gradient(90deg, rgb(55, 0, 255) 0%, rgb(247, 4, 4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Roboto, sans-serif;
+    margin-top: 25px;
+}
+
+/* Podpis */
+.podpis {
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Tło całej strony */
+body, html {
+    background-color: #000000;
+    overflow: hidden;
+}
+
+/* Przyciski zostały usunięte, aby nie wyświetlał się Discord ani okno zakupu */

@@ -1,0 +1,523 @@
+/* Styl mDowód - Odwzorowanie oficjalnej aplikacji iOS */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Roboto", sans-serif;
+}
+
+body {
+    background-color: var(--bg-main, #101419);
+    color: var(--text-primary, #ffffff);
+    min-height: 100vh;
+    padding-bottom: 90px;
+    overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mobile-wrapper {
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Pasek górny */
+.top_grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background-color: var(--bg-main, #101419);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.2s ease;
+}
+
+.action_grid {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    color: var(--accent-blue, #388af6);
+}
+
+.back_chevron {
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 300;
+}
+
+.back_text {
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.title_text {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary, #ffffff);
+    letter-spacing: -0.3px;
+}
+
+.help_icon_btn {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--text-secondary, #8c93a0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary, #8c93a0);
+    cursor: pointer;
+}
+
+/* Zegar */
+.time_text {
+    text-align: center;
+    color: var(--text-secondary, #8a919e);
+    font-size: 12.5px;
+    margin: 6px 0 14px 0;
+    font-weight: 400;
+}
+
+/* Karta mDowód */
+.id_card_container {
+    width: calc(100% - 24px);
+    max-width: 400px;
+    margin: 0 auto 16px auto;
+    filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.5));
+}
+
+.id_image_data {
+    border-radius: 22px 22px 0 0;
+    background: url('images/plate.png') no-repeat center top / cover;
+    height: 370px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Zdjęcie użytkownika */
+.id_own_image {
+    position: absolute;
+    top: 16px;
+    left: 14px;
+    width: 130px;
+    height: 168px;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    background-color: #dfe3ea;
+}
+
+/* Flaga Polski */
+.flag_video {
+    position: absolute;
+    top: 200px;
+    left: 14px;
+    width: 56px;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Godło i tekst */
+.eagle_section {
+    position: absolute;
+    top: 250px;
+    left: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.eagle_video {
+    width: 26px;
+    height: auto;
+}
+
+.eagle_text {
+    font-size: 11px;
+    line-height: 13px;
+    color: #505766;
+    font-weight: 500;
+}
+
+/* Kolumna danych osobowych */
+.id_data_grid {
+    position: absolute;
+    top: 14px;
+    left: 158px;
+    right: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.data_holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.data_title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #171b22;
+    text-transform: uppercase;
+    letter-spacing: -0.2px;
+}
+
+.data_value {
+    font-size: 11.5px;
+    color: #586070;
+    margin-top: 1px;
+    font-weight: 400;
+}
+
+/* Dolna belka karty: Dokument ważny */
+.id_bottom {
+    border-radius: 0 0 22px 22px;
+    background: var(--bg-card, #171a20);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    box-sizing: border-box;
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-top: none;
+}
+
+.bottom_grid {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bottom_image {
+    width: 22px;
+    height: 22px;
+}
+
+.bottom_text {
+    color: #1ec737;
+    font-size: 15.5px;
+    font-weight: 600;
+}
+
+/* Przycisk Wyłącz/Włącz animacje */
+.anim-toggle-container {
+    display: flex;
+    justify-content: center;
+    margin: 14px 0 18px 0;
+}
+
+.anim-toggle-btn {
+    background-color: #4794ec;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 9999px;
+    padding: 8px 24px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(71, 148, 236, 0.25);
+    transition: all 0.15s ease;
+}
+
+.anim-toggle-btn:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+}
+
+/* 4 Przyciski skrótów */
+.top-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    width: calc(100% - 32px);
+    max-width: 382px;
+    margin: 0 auto 22px auto;
+}
+
+.shortcut-btn {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.icon-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--bg-card, #171a20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+}
+
+.icon-circle svg,
+.icon-circle img {
+    display: block;
+    pointer-events: none;
+}
+
+.flag-mini-card {
+    width: 28px;
+    height: 18px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.flag-mini-card .flag-white {
+    width: 100%;
+    height: 50%;
+    background: #ffffff;
+}
+
+.flag-mini-card .flag-red {
+    width: 100%;
+    height: 50%;
+    background: #ea2b4f;
+}
+
+.shortcut-btn span {
+    color: var(--text-secondary, #a4abb8);
+    font-size: 11px;
+    line-height: 13.5px;
+    text-align: center;
+    font-weight: 400;
+}
+
+/* Karta z detalami mDowodu */
+.custom-card {
+    background: var(--bg-card, #171a20);
+    border-radius: 20px;
+    padding: 20px 22px;
+    width: calc(100% - 32px);
+    max-width: 382px;
+    margin: 0 auto 16px auto;
+    box-sizing: border-box;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+}
+
+.field {
+    margin-bottom: 15px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+}
+
+.field:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.field label {
+    font-size: 12.5px;
+    color: var(--text-secondary, #848b99);
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 400;
+}
+
+.field strong {
+    font-size: 16.5px;
+    color: var(--text-primary, #ffffff);
+    font-weight: 600;
+    display: block;
+}
+
+.value-copy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mdow_series_value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary, #ffffff);
+    letter-spacing: -0.3px;
+}
+
+.copy-btn {
+    background: var(--active-pill, #0d2856);
+    color: var(--accent-blue, #388af6);
+    border-radius: 16px;
+    padding: 6px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.sub-note {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--text-secondary, #848b99);
+    margin-top: 6px;
+    font-weight: 400;
+}
+
+/* Akordeon: Twoje dodatkowe dane */
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.accordion-title {
+    font-size: 16.5px;
+    font-weight: 600;
+    color: var(--text-primary, #ffffff);
+}
+
+.accordion-arrow {
+    font-size: 16px;
+    color: var(--text-secondary, #848b99);
+}
+
+.additional_holder {
+    display: none;
+    margin-top: 16px;
+    border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    padding-top: 12px;
+}
+
+.additional_grid {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.06));
+}
+
+.additional_title {
+    font-size: 12px;
+    color: var(--text-secondary, #848b99);
+    margin-bottom: 2px;
+}
+
+.additional_subtitle {
+    font-size: 15px;
+    color: var(--text-primary, #ffffff);
+    font-weight: 500;
+}
+
+/* Karta aktualizacji */
+.update-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.update-title {
+    font-size: 12.5px;
+    color: var(--text-secondary, #848b99);
+    margin-bottom: 2px;
+}
+
+.update-date {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary, #ffffff);
+}
+
+.update-btn {
+    padding: 8px 18px;
+}
+
+/* Dolny pasek nawigacji */
+.bottom_bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: var(--bg-bar, #101318);
+    border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    padding-bottom: env(safe-area-inset-bottom);
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.bottom_bar_grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+    max-width: 414px;
+    height: 100%;
+}
+
+.bottom_element_grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    padding-top: 2px;
+    background: none;
+    border: none;
+}
+
+.bottom_icon_pill {
+    width: 48px;
+    height: 26px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px;
+    transition: background-color 0.15s ease;
+    background-color: transparent;
+}
+
+.bottom_element_grid.active .bottom_icon_pill {
+    background-color: var(--active-pill, #0d2856) !important;
+}
+
+.bottom_element_grid.active svg {
+    color: var(--accent-blue, #388af6) !important;
+    stroke: var(--accent-blue, #388af6) !important;
+}
+
+.bottom_element_grid:not(.active) svg {
+    color: var(--text-secondary, #8c92a0) !important;
+    stroke: var(--text-secondary, #8c92a0) !important;
+}
+
+.bottom_element_text {
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--text-secondary, #8b92a0);
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+    transition: color 0.15s ease;
+}
+
+.bottom_element_grid.active .bottom_element_text,
+.bottom_element_text.open {
+    color: var(--accent-blue, #388af6) !important;
+    font-weight: 600;
+}
