@@ -1,0 +1,137 @@
+.back_img{
+    width: 9px;
+    margin-right: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.back_text{
+    color: var(--text);
+    font-weight: 500;
+    font-size: 18px;
+    height: max-content;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.help_img {
+    width: 28px;
+    margin-right: 10px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+}
+.show_title{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    margin-top: 80px;
+    text-align: left;
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: 600;
+    margin-bottom: auto;
+}
+
+.show_description{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: auto;
+    color: white;
+}
+
+.frame{
+    margin-top: 30px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    height: max-content;
+    background-color: var(--secondary);
+    margin-bottom: 0px;
+}
+
+.qr_image{
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+    height: max-content;
+    display: block;
+    overflow: hidden;
+}
+
+.qr_image img{
+    padding: 10px;
+    background-color: white;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.numbers{
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 45px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    margin-top: -10px;
+    color: white;
+}
+
+.loading{
+    margin-top: -20px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--gray);
+    height: 5px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading_bar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: var(--text);
+    border-radius: 10px;
+}
+
+.expire{
+    margin-top: 30px;
+    text-align: center;
+    height: 50px;
+    color: white;
+    font-size: 16px;
+}
+
+.expire_highlight{
+    font-weight: 600;
+    font-size: 17px;
+    color: white;
+}
+
+.bottom_frame{
+    margin-top: 20px;
+    margin-bottom: 130px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.frame_image{
+    height: 45px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
