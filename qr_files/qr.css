@@ -1,0 +1,319 @@
+
+body .bottom_bar{
+    z-index: 0;
+}
+
+.description_qr{
+    font-weight: 400;
+    font-size: 18px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.action_grid{
+    background-color: var(--secondary);
+    border-radius: 20px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: max-content max-content;
+    height: max-content;
+    width: 100%;
+}
+
+.action{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--secondary);
+    width: 90%;
+    border-top: 1px solid var(--gray-border);
+    height: max-content;
+    display: grid;
+    margin-bottom: 10px;
+    grid-template-columns: 15% 75% 10%;
+}
+
+.action_image{
+    width: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.action_text{
+    display: grid;
+    grid-template-columns: 100%;
+    width: 100%;
+    height: max-content;
+    grid-template-rows: max-content max-content;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.action_title{
+    margin-top: 20px;
+    margin-bottom: auto;
+    height: max-content;
+    font-weight: 500;
+    font-size: 23px;
+    color: white;
+    width: max-content;
+}
+
+.action_subtitle{
+    margin-top: auto;
+    margin-bottom: 20px;
+    height: max-content;
+    font-weight: 400;
+    font-size: 17px;
+    width: 100%;
+    margin-top: 2px;
+    color: white;
+}
+
+.arrow{
+    width: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.error{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    width: 0%;
+}
+
+.error_box{
+    width: 80%;
+    height: 230px;
+    border-radius: 15px;
+    background-color: white;
+    position: fixed;
+    top: -2000px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    transition: 400ms;
+}
+
+.error_title{
+    opacity: 0.9;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.error_description{
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 15px;
+    width: 80%;
+    margin-left: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error_button{
+    background-color: var(--text);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 50px;
+    height: 50px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.opacity{
+    background-color: black;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    transition: 200ms;
+}
+
+.error_open{
+    width: 100%;
+}
+
+.error_open .opacity{
+    opacity: 0.7;
+}
+
+.error_open .error_box{
+    top: 0;
+}
+
+.qr_demo_error {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: none;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+}
+
+.qr_demo_error.open {
+    display: block;
+}
+
+.qr_demo_error_backdrop {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 31% 21%, rgba(65, 85, 91, 0.22), transparent 30%),
+        radial-gradient(circle at 84% 54%, rgba(31, 35, 38, 0.38), transparent 35%),
+        linear-gradient(180deg, #161a1d 0%, #111218 58%, #0d0f11 100%);
+}
+
+.qr_demo_error_content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 72px 24px 170px;
+    text-align: center;
+}
+
+.qr_failure_active {
+    overflow: hidden;
+}
+
+.qr_spinner {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 5px solid rgba(75, 164, 254, 0.2);
+    border-top-color: #4ba4fe;
+    animation: qrSpin 0.85s linear infinite;
+}
+
+.qr_error_close {
+    position: fixed;
+    left: 30px;
+    top: calc(34px + env(safe-area-inset-top));
+    width: 34px;
+    height: 34px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+}
+
+.qr_error_close::before,
+.qr_error_close::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 15px;
+    width: 27px;
+    height: 4px;
+    border-radius: 999px;
+    background: #fff;
+}
+
+.qr_error_close::before {
+    transform: rotate(45deg);
+}
+
+.qr_error_close::after {
+    transform: rotate(-45deg);
+}
+
+.qr_error_icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 5px solid #ff3b30;
+    position: relative;
+    margin-bottom: 26px;
+}
+
+.qr_error_icon::before,
+.qr_error_icon::after {
+    content: "";
+    position: absolute;
+    left: 22px;
+    top: 37px;
+    width: 38px;
+    height: 5px;
+    border-radius: 999px;
+    background: #ff3b30;
+}
+
+.qr_error_icon::before {
+    transform: rotate(45deg);
+}
+
+.qr_error_icon::after {
+    transform: rotate(-45deg);
+}
+
+.qr_error_title {
+    margin: 0;
+    color: #fff;
+    font-size: 29px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.qr_error_description {
+    width: min(460px, 92%);
+    margin: 22px auto 0;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1.42;
+    font-weight: 500;
+}
+
+.qr_error_buttons {
+    position: fixed;
+    left: 20px;
+    right: 20px;
+    bottom: calc(26px + env(safe-area-inset-bottom));
+    display: grid;
+    gap: 14px;
+}
+
+.qr_error_button {
+    width: 100%;
+    height: 56px;
+    border-radius: 11px;
+    border: 2px solid #47c9f4;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.qr_error_button.primary {
+    color: #1a7e9b;
+    background: #f4ffff;
+}
+
+.qr_error_button.secondary {
+    color: #55d6ff;
+    background: rgba(5, 8, 11, 0.3);
+}
+
+@keyframes qrSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
