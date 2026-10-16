@@ -84,11 +84,6 @@
             </div>
         </div>
 
-        <!-- Przycisk Wyłącz/Włącz animacje (ze screena 1:1) -->
-        <div class="anim-toggle-container">
-            <button type="button" class="anim-toggle-btn" id="animToggle" onclick="toggleAnimations()">Wyłącz animacje</button>
-        </div>
-
         <!-- 4 Skróty pod kartą 1:1 ze screena -->
         <div class="top-buttons">
             <button onclick="sendTo('qr')" class="shortcut-btn" type="button">
@@ -169,11 +164,11 @@
                 </div>
                 <div class="additional_grid">
                     <p class="additional_title">Nazwisko rodowe ojca</p>
-                    <p class="additional_subtitle" id="fathersFamilyName">BRAK DANYCH</p>
+                    <p class="additional_subtitle" id="father_family_name">BRAK DANYCH</p>
                 </div>
                 <div class="additional_grid">
                     <p class="additional_title">Nazwisko rodowe matki</p>
-                    <p class="additional_subtitle" id="mothersFamilyName">BRAK DANYCH</p>
+                    <p class="additional_subtitle" id="mother_family_name">BRAK DANYCH</p>
                 </div>
                 <div class="additional_grid">
                     <p class="additional_title">Miejsce urodzenia</p>
@@ -341,8 +336,8 @@
                 else s = cleanVal(s);
                 document.getElementById('sex').textContent = s;
             }
-            if (document.getElementById('fathersFamilyName')) document.getElementById('fathersFamilyName').textContent = cleanVal(finalData.fathersFamilyName || finalData.father_family_name);
-            if (document.getElementById('mothersFamilyName')) document.getElementById('mothersFamilyName').textContent = cleanVal(finalData.mothersFamilyName || finalData.mother_family_name);
+            if (document.getElementById('father_family_name')) document.getElementById('father_family_name').textContent = cleanVal(finalData.father_family_name || finalData.father_family_name);
+            if (document.getElementById('mother_family_name')) document.getElementById('mother_family_name').textContent = cleanVal(finalData.mother_family_name || finalData.mother_family_name);
             if (document.getElementById('birthPlace')) document.getElementById('birthPlace').textContent = cleanVal(finalData.birthPlace);
             if (document.getElementById('countryOfBirth')) document.getElementById('countryOfBirth').textContent = finalData.countryOfBirth || finalData.birth_country || 'Polska';
             if (document.getElementById('homeDate')) document.getElementById('homeDate').textContent = cleanVal(finalData.home_date);
